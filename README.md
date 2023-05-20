@@ -20,4 +20,14 @@
 - <ins>***What are the differences between processes and thread?***</ins> 
   - Threads are not independent from each other unlike processes. 
   - As a result, threads shares with other threads their code section, data section and OS resources like open files and signals. 
-  - But, like processes, a thread has its own program counter (PC), a register set, and a stack space.  
+  - But, like processes, a thread has its own program counter (PC), a register set, and a stack space.
+
+ <ins>***Why Multithreading?***</ins> 
+ 
+- Threads are popular way to improve application through parallelism. 
+- For example, in a browser, multiple tabs can be different threads. MS word uses multiple threads, one thread to format the text, other thread to process inputs, etc. 
+- Threads operate faster than processes due to following reasons: 
+  - Thread creation is much faster. 
+  - Context switching between threads is much faster. 
+  - Threads can be terminated easily 
+  - Communication between threads is faster.
