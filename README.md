@@ -10,3 +10,5 @@
 - Mutex object
   - A mutex is <ins>***a mechanism used to ensure that multiple concurrent threads do not try to execute a critical section of code simultaneously***</ins>.
   - If a mutex is not applied, the program might be subject to a <ins>***race condition***</ins>, a situation in which multiple threads try to access a shared resource at the same time. When this happens, unintended results can occur, such as data being read or written incorrectly or the program misbehaving or crashing.
+
+So, in summary : Use a mutex when you (thread) want to execute code that should not be executed by any other thread at the same time.
