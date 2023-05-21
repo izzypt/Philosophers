@@ -49,6 +49,8 @@ with a mutex for each of them.
   - So, the thread can be referred to as the basic unit of a process or it is the simpler unit that tother makes the CPU utilization
   - Threads allow for parallel execution of multiple tasks within a single process.
 
+![image](https://github.com/izzypt/Philosophers/assets/73948790/d63d984b-e2f8-48c1-9e42-56d376f31ba9)
+
 
 - <ins>***Thread elements***</ins>
   - A thread ID: 
