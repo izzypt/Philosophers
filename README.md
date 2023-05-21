@@ -50,4 +50,33 @@
 
 # Getting start with threads
 
-1 - #include <pthread.h>
+1 - To use threads in C , you need to include the <pthread.h> header file in your program.
+
+```
+ #include <pthread.h>
+```
+
+2 - Define the function that will be executed by the thread. This function should have a void* return type and take a void* argument. For example
+```
+void* thread_function(void* arg) {
+    // Code to be executed by the thread
+    // You can typecast arg to the appropriate data type if needed
+    return NULL;  // Return value of the thread
+}
+```
+3 - In your main program, create a thread object and start the thread using the ```pthread_create``` function:
+```
+int main() {
+    pthread_t thread;
+    int status;
+
+    status = pthread_create(&thread, NULL, thread_function, NULL);
+    if (status != 0) {
+        // Handle error
+    }
+
+    // Continue with the main program
+
+    pthread_exit(NULL);  // Wait for the thread to finish before exiting
+}
+```
