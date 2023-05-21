@@ -110,6 +110,30 @@ int main() {
 }
 ```
 
+
+# A summary on the allowed functions from <pthread.h>
+
+- pthread_create(): 
+  - This function is used to create a new thread of execution within a program. It takes a function pointer as an argument, which specifies the starting point of the new thread's execution. The newly created thread runs concurrently with the main thread, allowing for parallel execution.
+
+- pthread_join(): 
+  - It is used to wait for a thread to terminate and retrieve its exit status. When a thread is joined, the calling thread blocks until the specified thread finishes execution. It allows for synchronization between threads and enables the retrieval of any return value or exit status from the joined thread.
+
+- pthread_detach(): 
+  - This function is used to detach a thread, allowing it to run independently and release its resources when it terminates. Once a thread is detached, its resources are automatically reclaimed by the system upon termination, and it cannot be joined using pthread_join().
+
+- pthread_mutex_init(): 
+  - It initializes a mutex (short for mutual exclusion), which is a synchronization primitive used to protect shared resources from simultaneous access by multiple threads. It sets up the mutex variable with the required attributes before it can be used.
+
+- pthread_mutex_destroy(): 
+   - This function is used to destroy a mutex object, releasing any resources associated with it. It should be called when a mutex is no longer needed to ensure proper cleanup and prevent resource leaks.
+
+- pthread_mutex_lock(): 
+  - It acquires a lock on a mutex, making the calling thread the owner of the mutex. If the mutex is already locked by another thread, the calling thread will block until it can acquire the lock. This function is used to enforce mutual exclusion and ensure that only one thread can access a critical section of code at a time.
+
+- pthread_mutex_unlock(): 
+  - This function releases the lock on a mutex, allowing other threads to acquire the mutex and access the protected resource. It should be called after a critical section of code has been executed to release the lock and enable other threads to proceed.
+
 Another resource on threads:
 
 https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2
