@@ -56,11 +56,18 @@ with a mutex for each of them.
   - A thread ID: 
     - It is a unique ID of the thread that is created during the creation of the thread and it remains for the whole life of that particular thread.
   - Program Counter: 
-    - It is a value that loads into the hardware.
+    - Also known as the instruction pointer, is a special register that keeps track of the address of the next instruction to be executed by a thread. 
+    - It points to the current position in the program's execution flow.
   - A registered set: 
-    - It is a set of general registers.
+    -  Refers to the collection of registers that store the thread's current execution context. 
+    -  These registers typically include the program counter, general-purpose registers, and other architecture-specific registers. 
+    -  The register set allows the thread to save and restore its execution state during context switches.
   - A stack: 
     - It is the memory of that particular thread.
+    - A region of memory used by a thread to store local variables, function calls, and other related data.
+    - Each thread typically has its own stack
+    - The stack grows and shrinks dynamically as the thread executes
+
 
 ![image](https://github.com/izzypt/Philosophers/assets/73948790/324ea47d-77a1-4d44-9ebf-8c895241c43f)
 
