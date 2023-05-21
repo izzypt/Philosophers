@@ -15,12 +15,27 @@
   - So, in summary : Use a mutex when you (thread) want to execute code that should not be executed by any other thread at the same time.
 
 - <ins>***What is a Thread?***</ins>
+  - A thread is a basic unit of execution of any process. 
+  - A program comprises many processes and all the processes comprise much simpler units known as threads. 
+  - So, the thread can be referred to as the basic unit of a process or it is the simpler unit that tother makes the CPU utilization
   - A thread is a single sequence stream within a process. 
   - Because threads have some of the properties of processes, they are sometimes called lightweight processes.
 - <ins>***What are the differences between processes and thread?***</ins> 
   - Threads are not independent from each other unlike processes. 
   - As a result, threads shares with other threads their code section, data section and OS resources like open files and signals. 
   - But, like processes, a thread has its own program counter (PC), a register set, and a stack space.
+
+![image](https://github.com/izzypt/Philosophers/assets/73948790/324ea47d-77a1-4d44-9ebf-8c895241c43f)
+
+- <ins>***Thread elements***</ins>
+  - A thread ID: 
+    - It is a unique ID of the thread that is created during the creation of the thread and it remains for the whole life of that particular thread.
+  - Program Counter: 
+    - It is a value that loads into the hardware.
+  - A registered set: 
+    - It is a set of general registers.
+  - A stack: 
+    - It is the memory of that particular thread.
 
  <ins>***Why Multithreading?***</ins> 
  
