@@ -18,8 +18,8 @@
   - A thread is a basic unit of execution of any process. 
   - A program comprises many processes and all the processes comprise much simpler units known as threads. 
   - So, the thread can be referred to as the basic unit of a process or it is the simpler unit that tother makes the CPU utilization
-  - A thread is a single sequence stream within a process. 
-  - Because threads have some of the properties of processes, they are sometimes called lightweight processes.
+  - Threads allow for parallel execution of multiple tasks within a single process.
+
 
 - <ins>***Thread elements***</ins>
   - A thread ID: 
@@ -47,3 +47,7 @@
   - Context switching between threads is much faster. 
   - Threads can be terminated easily 
   - Communication between threads is faster.
+
+# Getting start with threads
+
+1 - #include <pthread.h>
