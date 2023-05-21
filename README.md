@@ -32,7 +32,7 @@ side. If there is only one philosopher, there should be only one fork on the tab
 with a mutex for each of them.
 
 
-### Core concepts
+# Core concepts
 
 - <ins>***Mutex***</ins>
   - In computer programming, a mutual exclusion (mutex) is a program object that <ins>***prevents multiple threads from accessing the same shared resource simultaneously***</ins> . 
