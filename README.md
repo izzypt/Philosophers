@@ -147,6 +147,7 @@ int main() {
   - It allows for synchronization between threads and enables the retrieval of any return value or exit status from the joined thread.
   - When a pthread_join() returns successfully, the target thread has been terminated. 
   - The results of multiple simultaneous calls to pthread_join() specifying the same target thread are undefined.
+  - Return values : On success, it returns 0, and on failure, it returns an error code.
 
 - pthread_detach(): 
   - This function is used to detach a thread, allowing it to run independently and release its resources when it terminates.
