@@ -136,8 +136,11 @@ int main() {
 # A summary on the allowed functions from <pthread.h>
 
 - pthread_create(): 
-  - This function is used to create a new thread of execution within a program. It takes a function pointer as an argument, which specifies the starting point of the new thread's execution. The newly created thread runs concurrently with the main thread, allowing for parallel execution.
-
+  - This function is used to create a new thread of execution within a program. 
+  - It takes a function pointer as an argument, which specifies the starting point of the new thread's execution. 
+  - The newly created thread runs concurrently with the main thread, allowing for parallel execution.
+  - On success, it returns 0, and on failure, it returns an error code. 
+ 
 - pthread_join(): 
   - It is used to wait for a thread to terminate and retrieve its exit status. 
   - When a thread is joined, the calling thread blocks until the specified thread finishes execution. 
