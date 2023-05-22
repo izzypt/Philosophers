@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/05/22 13:08:43 by simao            ###   ########.fr       */
+/*   Updated: 2023/05/22 18:25:01 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct t_philosopher
 t_simulation	*sim(void);
 /* Simulation related */
 void			start_simulation(char **argv);
+void			thread_for_each_philo();
 /* Utils */
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
