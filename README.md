@@ -97,12 +97,13 @@ with a mutex for each of them.
 # Getting start with threads
 
 1 - To use threads in C , you need to include the <pthread.h> header file in your program.
-
+  - When compiling , dont forget to include the flag ```-pthread```.
 ```
  #include <pthread.h>
 ```
 
-2 - Define the function that will be executed by the thread. This function should have a void* return type and take a void* argument. For example
+2 - The first thing it happens when you create a thread is : it executes a function.
+  - Define the function that will be executed by the thread. This function should have a ```void*``` return type and take a ```void*``` argument. For example
 ```
 void* thread_function(void* arg) {
     // Code to be executed by the thread
@@ -110,7 +111,9 @@ void* thread_function(void* arg) {
     return NULL;  // Return value of the thread
 }
 ```
-3 - In your main program, create a thread object and start the thread using the ```pthread_create``` function:
+3 - We will need to create a variable which will hold some information about the thread. 
+  - It will be a  ```pthread_t``` type variable (a type we imported from the ```<pthread.h>```).
+  - Start the thread using the ```pthread_create``` function:
 ```
 int main() {
     pthread_t thread;
@@ -127,6 +130,8 @@ int main() {
 }
 ```
 
+4 - It is also important to wait for the thread to finish executing (Imagine your program finishes before the thread)
+  - We can use ```pthread_join()``` to do that.
 
 # A summary on the allowed functions from <pthread.h>
 
