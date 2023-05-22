@@ -22,12 +22,20 @@ a philosopher dies of starvation.
 
 
 - Each philosopher should be a thread.
-- There is one fork between each pair of philosophers. Therefore, if there are several
-philosophers, each philosopher has a fork on their left side and a fork on their right
-side. If there is only one philosopher, there should be only one fork on the table.
+- There is one fork between each pair of philosophers. 
+- If there are several philosophers, each philosopher has a fork on their left side and a fork on their right
+side. 
+- If there is only one philosopher, there should be only one fork on the table.
 - To prevent philosophers from duplicating forks, you should protect the forks state
 with a mutex for each of them.
-
+- Your(s) program(s) should take the following arguments:
+  - number_of_philosophers 
+  - time_to_die 
+  - time_to_eat 
+  - time_to_sleep
+  - number_of_times_each_philosopher_must_eat
+- Philosopher number 1 sits next to philosopher ```number_of_philosophers```.
+- Any other philosopher number ```N``` sits between philosopher number ```N - 1``` and philosopher number ```N + 1```.
 
 # Core concepts
 
