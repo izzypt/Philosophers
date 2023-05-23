@@ -6,18 +6,21 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/05/23 12:14:49 by simao            ###   ########.fr       */
+/*   Updated: 2023/05/23 13:42:59 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+/* Libraries */
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
 # include <limits.h>
+# include <string.h>
+# include <sys/time.h>
 # include <pthread.h>
 
 /* Structs */
@@ -34,6 +37,8 @@ typedef struct s_simulation
 typedef struct t_philosopher
 {
 	int	num;
+
+	int	fork;
 }	t_philosopher;
 
 /* Messages */
@@ -46,9 +51,9 @@ typedef struct t_philosopher
 
 /* Struct Getters */
 t_simulation	*sim(void);
-/* Simulation related */
+/* Simulation Related */
 void			start_simulation(char **argv);
-void			thread_for_each_philo();
+void			thread_for_each_philo(void);
 /* Utils */
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
