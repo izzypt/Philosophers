@@ -218,15 +218,15 @@ Note that the `pthread_mutex_init` function initializes the mutex, `pthread_mute
 
 By using the mutex, we ensure that only one thread can access the critical section at a time, preventing race conditions and ensuring the integrity of the shared variable.
 
-# A summary on the allowed functions from <pthread.h>
+# A summary on the allowed functions for the project
 
-- pthread_create(): 
+- `pthread_create()`: 
   - This function is used to create a new thread of execution within a program. 
   - It takes a function pointer as an argument, which specifies the starting point of the new thread's execution. 
   - The newly created thread runs concurrently with the main thread, allowing for parallel execution.
   - On success, it returns 0, and on failure, it returns an error code. 
  
-- pthread_join(): 
+- `pthread_join()`: 
   - It is used to wait for a thread to terminate and retrieve its exit status. 
   - When a thread is joined, the calling thread blocks until the specified thread finishes execution. 
   - It allows for synchronization between threads and enables the retrieval of any return value or exit status from the joined thread.
@@ -234,25 +234,74 @@ By using the mutex, we ensure that only one thread can access the critical secti
   - The results of multiple simultaneous calls to pthread_join() specifying the same target thread are undefined.
   - Return values : On success, it returns 0, and on failure, it returns an error code.
 
-- pthread_detach(): 
+- `pthread_detach()`: 
   - This function is used to detach a thread, allowing it to run independently and release its resources when it terminates.
   - Once a thread is detached, its resources are automatically reclaimed by the system upon termination, and it cannot be joined using pthread_join().
 
-- pthread_mutex_init(): 
+- `pthread_mutex_init()`: 
   - It initializes a mutex (short for mutual exclusion), which is a synchronization primitive used to protect shared resources from simultaneous access by multiple threads. 
   - It sets up the mutex variable with the required attributes before it can be used.
 
-- pthread_mutex_destroy(): 
+- `pthread_mutex_destroy()`: 
    - This function is used to destroy a mutex object, releasing any resources associated with it. 
    - It should be called when a mutex is no longer needed to ensure proper cleanup and prevent resource leaks.
 
-- pthread_mutex_lock(): 
+- `pthread_mutex_lock()`: 
   - It acquires a lock on a mutex, making the calling thread the owner of the mutex. 
   - If the mutex is already locked by another thread, the calling thread will block until it can acquire the lock. This function is used to enforce mutual exclusion and ensure that only one thread can access a critical section of code at a time.
 
-- pthread_mutex_unlock(): 
+- `pthread_mutex_unlock()`: 
   - This function releases the lock on a mutex, allowing other threads to acquire the mutex and access the protected resource.
   - It should be called after a critical section of code has been executed to release the lock and enable other threads to proceed.
+
+- `gettimeofday()` : 
+  - Is a commonly used function in the C programming language that retrieves the current time and stores it in a timeval structure. 
+  - This function is often used for measuring elapsed time, calculating time differences, or benchmarking code.
+
+  - Here's the function signature for `gettimeofday()`:
+
+```c
+int gettimeofday(struct timeval *tv, struct timezone *tz);
+```
+
+  - The function takes two arguments:
+
+  - 1. `struct timeval *tv`: A pointer to a timeval structure where the current time will be stored.
+  - 2. `struct timezone *tz`: A pointer to a timezone structure (deprecated and usually set to NULL).
+
+Here's an example of how to use `gettimeofday()`:
+
+```c
+#include <stdio.h>
+#include <sys/time.h>
+
+int main() {
+    struct timeval tv;
+    
+    // Get the current time
+    int result = gettimeofday(&tv, NULL);
+    if (result != 0) {
+        perror("gettimeofday");
+        return 1;
+    }
+    
+    // Access the time values
+    printf("Seconds: %ld\n", tv.tv_sec);
+    printf("Microseconds: %ld\n", tv.tv_usec);
+    
+    return 0;
+}
+```
+
+- We declare a `struct timeval` variable `tv` to hold the time values. 
+- We then call `gettimeofday()` with a pointer to `tv` and NULL as the second argument.
+
+- If `gettimeofday()` returns 0, it means the function call was successful. 
+- We can then access the time values using the `tv_sec` and `tv_usec` members of the `tv` structure. `tv_sec` represents the number of seconds, and `tv_usec` represents the number of microseconds since the Epoch (January 1, 1970).
+
+- In the example, we print the values of `tv_sec` and `tv_usec` using `printf()`.
+
+- Remember to compile your C program with the `-lrt` flag to link against the real-time library, as `gettimeofday()` is part of that library.
 
 Another resource:
 
