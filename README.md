@@ -39,31 +39,6 @@ with a mutex for each of them.
 
 # Core concepts
 
-- <ins>***Mutex***</ins>
-  - In computer programming, a mutual exclusion (mutex) is a program object that <ins>***prevents multiple threads from accessing the same shared resource simultaneously***</ins> . 
-- <ins>***Shared Resource***</ins>
-  - A shared resource in this context is a code element with a critical section, the part of the code that should not be executed by more than one thread at a time. 
-  - For example, a critical section might update <ins>***a global variable***</ins>, modify <ins>***a table in a database***</ins> or write a file to a network server. 
-  - In such cases, access to the shared resource must be controlled to prevent problems to the data or the program itself.
-- <ins>***Mutex object***</ins>
-  - A mutex is a mechanism used to ensure that multiple concurrent threads do not try to execute a critical section of code simultaneously.
-- <ins>***Race condition***</ins>
-  - A race condition refers to a situation where the behavior or outcome of a program becomes unpredictable or incorrect due to the simultaneous and uncoordinated access to shared resources by multiple threads or processes.
-  - Race conditions typically occur when two or more threads access and manipulate a shared resource concurrently, without proper synchronization mechanisms in place. 
-  - This can lead to unexpected results because the order and timing of the operations become unpredictable. 
-  - If a mutex is not applied, the program might be subject to a race condition, a situation in which multiple threads try to access a shared resource at the same time. When this happens, unintended results can occur, such as data being read or written incorrectly or the program misbehaving or crashing.
-  - Example :
-    - For example, let's consider a scenario where two threads are incrementing a shared variable simultaneously. If the threads perform the following steps:
-
-     - Read the current value of the shared variable.
-    - Increment the value.
-    - Write the updated value back to the shared variable.
-    - A race condition can occur if both threads read the value simultaneously, then increment it separately, and finally write back their results. 
-    - In this case, the final value of the shared variable may not be the sum of the increments from both threads, as expected. The outcome will depend on the interleaving of instructions from different threads, leading to data corruption or incorrect results.
-
-- To mitigate race conditions, synchronization mechanisms like locks, semaphores, or mutexes can be used to enforce mutual exclusion and coordinate access to shared resources. 
-- These mechanisms ensure that only one thread/process can access the shared resource at a time, preventing conflicts and maintaining the desired consistency in the program's execution.
-
 - <ins>***What is a Thread?***</ins>
   - A thread is a basic unit of execution of any process. 
   - A program comprises many processes and all the processes comprise much simpler units known as threads. 
@@ -106,6 +81,31 @@ with a mutex for each of them.
   - Context switching between threads is much faster. 
   - Threads can be terminated easily 
   - Communication between threads is faster.
+
+- <ins>***Mutex***</ins>
+  - In computer programming, a mutual exclusion (mutex) is a program object that <ins>***prevents multiple threads from accessing the same shared resource simultaneously***</ins> . 
+- <ins>***Shared Resource***</ins>
+  - A shared resource in this context is a code element with a critical section, the part of the code that should not be executed by more than one thread at a time. 
+  - For example, a critical section might update <ins>***a global variable***</ins>, modify <ins>***a table in a database***</ins> or write a file to a network server. 
+  - In such cases, access to the shared resource must be controlled to prevent problems to the data or the program itself.
+- <ins>***Mutex object***</ins>
+  - A mutex is a mechanism used to ensure that multiple concurrent threads do not try to execute a critical section of code simultaneously.
+- <ins>***Race condition***</ins>
+  - A race condition refers to a situation where the behavior or outcome of a program becomes unpredictable or incorrect due to the simultaneous and uncoordinated access to shared resources by multiple threads or processes.
+  - Race conditions typically occur when two or more threads access and manipulate a shared resource concurrently, without proper synchronization mechanisms in place. 
+  - This can lead to unexpected results because the order and timing of the operations become unpredictable. 
+  - If a mutex is not applied, the program might be subject to a race condition, a situation in which multiple threads try to access a shared resource at the same time. When this happens, unintended results can occur, such as data being read or written incorrectly or the program misbehaving or crashing.
+  - Example :
+    - For example, let's consider a scenario where two threads are incrementing a shared variable simultaneously. If the threads perform the following steps:
+
+     - Read the current value of the shared variable.
+    - Increment the value.
+    - Write the updated value back to the shared variable.
+    - A race condition can occur if both threads read the value simultaneously, then increment it separately, and finally write back their results. 
+    - In this case, the final value of the shared variable may not be the sum of the increments from both threads, as expected. The outcome will depend on the interleaving of instructions from different threads, leading to data corruption or incorrect results.
+
+- To mitigate race conditions, synchronization mechanisms like locks, semaphores, or mutexes can be used to enforce mutual exclusion and coordinate access to shared resources. 
+- These mechanisms ensure that only one thread/process can access the shared resource at a time, preventing conflicts and maintaining the desired consistency in the program's execution.
 
 # Getting started with threads
 
