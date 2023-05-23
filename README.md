@@ -254,6 +254,9 @@ By using the mutex, we ensure that only one thread can access the critical secti
   - This function releases the lock on a mutex, allowing other threads to acquire the mutex and access the protected resource.
   - It should be called after a critical section of code has been executed to release the lock and enable other threads to proceed.
 
+- `usleep()`
+  - The usleep() function in C is used to suspend the execution of the program for a specified number of microseconds 
+
 - `gettimeofday()` : 
   - Is a commonly used function in the C programming language that retrieves the current time and stores it in a timeval structure. 
   - This function is often used for measuring elapsed time, calculating time differences, or benchmarking code.
