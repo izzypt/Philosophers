@@ -132,6 +132,69 @@ int main() {
 
 4 - It is also important to wait for the thread to finish executing (Imagine your program finishes before the thread)
   - We can use ```pthread_join()``` to do that.
+ 
+# Getting start with Mutex
+
+This is a chatGPT example :
+
+Here's a short example that demonstrates the usage of mutex with the `pthread.h` library in C:
+
+```c
+#include <stdio.h>
+#include <pthread.h>
+
+// Global variables
+int counter = 0;
+pthread_mutex_t mutex;
+
+// Thread function
+void *threadFunction(void *arg) {
+    // Lock the mutex before accessing the shared variable
+    pthread_mutex_lock(&mutex);
+
+    // Critical section: increment the counter
+    counter++;
+
+    // Print the updated counter value
+    printf("Thread ID: %lu, Counter: %d\n", pthread_self(), counter);
+
+    // Unlock the mutex after finishing the critical section
+    pthread_mutex_unlock(&mutex);
+
+    // Terminate the thread
+    pthread_exit(NULL);
+}
+
+int main() {
+    pthread_t threads[5];
+
+    // Initialize the mutex
+    pthread_mutex_init(&mutex, NULL);
+
+    // Create five threads
+    for (int i = 0; i < 5; i++) {
+        pthread_create(&threads[i], NULL, threadFunction, NULL);
+    }
+
+    // Wait for all threads to finish
+    for (int i = 0; i < 5; i++) {
+        pthread_join(threads[i], NULL);
+    }
+
+    // Destroy the mutex
+    pthread_mutex_destroy(&mutex);
+
+    return 0;
+}
+```
+
+In this example, we have a global variable `counter` that is accessed by multiple threads. The `pthread_mutex_t` variable `mutex` is used to protect the critical section where the `counter` is incremented. Each thread locks the mutex before accessing the critical section and unlocks it after finishing the critical section.
+
+The `threadFunction` is the entry point for each thread. It increments the `counter` and prints the updated value. The `main` function creates five threads, waits for them to finish using `pthread_join`, and then destroys the mutex.
+
+Note that the `pthread_mutex_init` function initializes the mutex, `pthread_mutex_lock` locks the mutex, `pthread_mutex_unlock` unlocks the mutex, and `pthread_mutex_destroy` destroys the mutex.
+
+By using the mutex, we ensure that only one thread can access the critical section at a time, preventing race conditions and ensuring the integrity of the shared variable.
 
 # A summary on the allowed functions from <pthread.h>
 
