@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/05/22 13:08:43 by simao            ###   ########.fr       */
+/*   Updated: 2023/05/23 12:09:07 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <limits.h>
 # include <pthread.h>
 
-/* STRUCTS */
+/* Structs */
 typedef struct s_simulation
 {
 	int	number_of_philosophers;
@@ -36,7 +36,15 @@ typedef struct t_philosopher
 	int	num;
 }	t_philosopher;
 
-/* Fetch structs */
+/* Messages */
+# define FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define MEALS "All Philosophers have finished eating"
+# define DEAD "is dead"
+
+/* Struct Getters */
 t_simulation	*sim(void);
 /* Simulation related */
 void			start_simulation(char **argv);
