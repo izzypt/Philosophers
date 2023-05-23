@@ -188,9 +188,13 @@ int main() {
 }
 ```
 
-In this example, we have a global variable `counter` that is accessed by multiple threads. The `pthread_mutex_t` variable `mutex` is used to protect the critical section where the `counter` is incremented. Each thread locks the mutex before accessing the critical section and unlocks it after finishing the critical section.
+- In this example, we have a global variable `counter` that is accessed by multiple threads. 
+- The `pthread_mutex_t` variable `mutex` is used to protect the critical section where the `counter` is incremented.
+- Each thread locks the mutex before accessing the critical section and unlocks it after finishing the critical section.
 
-The `threadFunction` is the entry point for each thread. It increments the `counter` and prints the updated value. The `main` function creates five threads, waits for them to finish using `pthread_join`, and then destroys the mutex.
+- The `threadFunction` is the entry point for each thread. 
+- It increments the `counter` and prints the updated value. 
+- The `main` function creates five threads, waits for them to finish using `pthread_join`, and then destroys the mutex.
 
 Note that the `pthread_mutex_init` function initializes the mutex, `pthread_mutex_lock` locks the mutex, `pthread_mutex_unlock` unlocks the mutex, and `pthread_mutex_destroy` destroys the mutex.
 
