@@ -16,6 +16,9 @@ a philosopher dies of starvation.
 - Philosophers don’t know if another philosopher is about to die.
 - No need to say that philosophers should avoid dying!
 
+![image](https://github.com/izzypt/Philosophers/assets/73948790/a8bf1018-e804-41a8-8407-7f9fb58d904e)
+
+
 # Project rules
 
 ![image](https://github.com/izzypt/Philosophers/assets/73948790/c0f85277-6e26-437c-8af4-3b5794540df1)
