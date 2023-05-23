@@ -254,10 +254,12 @@ By using the mutex, we ensure that only one thread can access the critical secti
   - This function releases the lock on a mutex, allowing other threads to acquire the mutex and access the protected resource.
   - It should be called after a critical section of code has been executed to release the lock and enable other threads to proceed.
 
-Another resource on threads:
+Another resource:
 
 https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2
 
 https://www.scaler.com/topics/multithreading-in-c/
 
 https://www.youtube.com/watch?v=LOfGJcVnvAk&ab_channel=NesoAcademy
+
+https://medium.com/swlh/the-dining-philosophers-problem-bbdb92e6b788
