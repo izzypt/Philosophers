@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/05/23 12:09:07 by simao            ###   ########.fr       */
+/*   Updated: 2023/05/23 12:14:49 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct t_philosopher
 t_simulation	*sim(void);
 /* Simulation related */
 void			start_simulation(char **argv);
+void			thread_for_each_philo();
 /* Utils */
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);

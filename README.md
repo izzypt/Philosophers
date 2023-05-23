@@ -22,12 +22,20 @@ a philosopher dies of starvation.
 
 
 - Each philosopher should be a thread.
-- There is one fork between each pair of philosophers. Therefore, if there are several
-philosophers, each philosopher has a fork on their left side and a fork on their right
-side. If there is only one philosopher, there should be only one fork on the table.
+- There is one fork between each pair of philosophers. 
+- If there are several philosophers, each philosopher has a fork on their left side and a fork on their right
+side. 
+- If there is only one philosopher, there should be only one fork on the table.
 - To prevent philosophers from duplicating forks, you should protect the forks state
 with a mutex for each of them.
-
+- Your(s) program(s) should take the following arguments:
+  - number_of_philosophers 
+  - time_to_die 
+  - time_to_eat 
+  - time_to_sleep
+  - number_of_times_each_philosopher_must_eat
+- Philosopher number 1 sits next to philosopher ```number_of_philosophers```.
+- Any other philosopher number ```N``` sits between philosopher number ```N - 1``` and philosopher number ```N + 1```.
 
 # Core concepts
 
@@ -86,15 +94,16 @@ with a mutex for each of them.
   - Threads can be terminated easily 
   - Communication between threads is faster.
 
-# Getting start with threads
+# Getting started with threads
 
 1 - To use threads in C , you need to include the <pthread.h> header file in your program.
-
+  - When compiling , dont forget to include the flag ```-pthread```.
 ```
  #include <pthread.h>
 ```
 
-2 - Define the function that will be executed by the thread. This function should have a void* return type and take a void* argument. For example
+2 - The first thing it happens when you create a thread is : it executes a function.
+  - Define the function that will be executed by the thread. This function should have a ```void*``` return type and take a ```void*``` argument. For example
 ```
 void* thread_function(void* arg) {
     // Code to be executed by the thread
@@ -102,7 +111,9 @@ void* thread_function(void* arg) {
     return NULL;  // Return value of the thread
 }
 ```
-3 - In your main program, create a thread object and start the thread using the ```pthread_create``` function:
+3 - We will need to create a variable which will hold some information about the thread. 
+  - It will be a  ```pthread_t``` type variable (a type we imported from the ```<pthread.h>```).
+  - Start the thread using the ```pthread_create``` function:
 ```
 int main() {
     pthread_t thread;
@@ -119,29 +130,107 @@ int main() {
 }
 ```
 
+4 - It is also important to wait for the thread to finish executing (Imagine your program finishes before the thread)
+  - We can use ```pthread_join()``` to do that.
+ 
+# Getting start with Mutex
+
+This is a chatGPT example :
+
+Here's a short example that demonstrates the usage of mutex with the `pthread.h` library in C:
+
+```c
+#include <stdio.h>
+#include <pthread.h>
+
+// Global variables
+int counter = 0;
+pthread_mutex_t mutex;
+
+// Thread function
+void *threadFunction(void *arg) {
+    // Lock the mutex before accessing the shared variable
+    pthread_mutex_lock(&mutex);
+
+    // Critical section: increment the counter
+    counter++;
+
+    // Print the updated counter value
+    printf("Thread ID: %lu, Counter: %d\n", pthread_self(), counter);
+
+    // Unlock the mutex after finishing the critical section
+    pthread_mutex_unlock(&mutex);
+
+    // Terminate the thread
+    pthread_exit(NULL);
+}
+
+int main() {
+    pthread_t threads[5];
+
+    // Initialize the mutex
+    pthread_mutex_init(&mutex, NULL);
+
+    // Create five threads
+    for (int i = 0; i < 5; i++) {
+        pthread_create(&threads[i], NULL, threadFunction, NULL);
+    }
+
+    // Wait for all threads to finish
+    for (int i = 0; i < 5; i++) {
+        pthread_join(threads[i], NULL);
+    }
+
+    // Destroy the mutex
+    pthread_mutex_destroy(&mutex);
+
+    return 0;
+}
+```
+
+In this example, we have a global variable `counter` that is accessed by multiple threads. The `pthread_mutex_t` variable `mutex` is used to protect the critical section where the `counter` is incremented. Each thread locks the mutex before accessing the critical section and unlocks it after finishing the critical section.
+
+The `threadFunction` is the entry point for each thread. It increments the `counter` and prints the updated value. The `main` function creates five threads, waits for them to finish using `pthread_join`, and then destroys the mutex.
+
+Note that the `pthread_mutex_init` function initializes the mutex, `pthread_mutex_lock` locks the mutex, `pthread_mutex_unlock` unlocks the mutex, and `pthread_mutex_destroy` destroys the mutex.
+
+By using the mutex, we ensure that only one thread can access the critical section at a time, preventing race conditions and ensuring the integrity of the shared variable.
 
 # A summary on the allowed functions from <pthread.h>
 
 - pthread_create(): 
-  - This function is used to create a new thread of execution within a program. It takes a function pointer as an argument, which specifies the starting point of the new thread's execution. The newly created thread runs concurrently with the main thread, allowing for parallel execution.
-
+  - This function is used to create a new thread of execution within a program. 
+  - It takes a function pointer as an argument, which specifies the starting point of the new thread's execution. 
+  - The newly created thread runs concurrently with the main thread, allowing for parallel execution.
+  - On success, it returns 0, and on failure, it returns an error code. 
+ 
 - pthread_join(): 
-  - It is used to wait for a thread to terminate and retrieve its exit status. When a thread is joined, the calling thread blocks until the specified thread finishes execution. It allows for synchronization between threads and enables the retrieval of any return value or exit status from the joined thread.
+  - It is used to wait for a thread to terminate and retrieve its exit status. 
+  - When a thread is joined, the calling thread blocks until the specified thread finishes execution. 
+  - It allows for synchronization between threads and enables the retrieval of any return value or exit status from the joined thread.
+  - When a pthread_join() returns successfully, the target thread has been terminated. 
+  - The results of multiple simultaneous calls to pthread_join() specifying the same target thread are undefined.
+  - Return values : On success, it returns 0, and on failure, it returns an error code.
 
 - pthread_detach(): 
-  - This function is used to detach a thread, allowing it to run independently and release its resources when it terminates. Once a thread is detached, its resources are automatically reclaimed by the system upon termination, and it cannot be joined using pthread_join().
+  - This function is used to detach a thread, allowing it to run independently and release its resources when it terminates.
+  - Once a thread is detached, its resources are automatically reclaimed by the system upon termination, and it cannot be joined using pthread_join().
 
 - pthread_mutex_init(): 
-  - It initializes a mutex (short for mutual exclusion), which is a synchronization primitive used to protect shared resources from simultaneous access by multiple threads. It sets up the mutex variable with the required attributes before it can be used.
+  - It initializes a mutex (short for mutual exclusion), which is a synchronization primitive used to protect shared resources from simultaneous access by multiple threads. 
+  - It sets up the mutex variable with the required attributes before it can be used.
 
 - pthread_mutex_destroy(): 
-   - This function is used to destroy a mutex object, releasing any resources associated with it. It should be called when a mutex is no longer needed to ensure proper cleanup and prevent resource leaks.
+   - This function is used to destroy a mutex object, releasing any resources associated with it. 
+   - It should be called when a mutex is no longer needed to ensure proper cleanup and prevent resource leaks.
 
 - pthread_mutex_lock(): 
-  - It acquires a lock on a mutex, making the calling thread the owner of the mutex. If the mutex is already locked by another thread, the calling thread will block until it can acquire the lock. This function is used to enforce mutual exclusion and ensure that only one thread can access a critical section of code at a time.
+  - It acquires a lock on a mutex, making the calling thread the owner of the mutex. 
+  - If the mutex is already locked by another thread, the calling thread will block until it can acquire the lock. This function is used to enforce mutual exclusion and ensure that only one thread can access a critical section of code at a time.
 
 - pthread_mutex_unlock(): 
-  - This function releases the lock on a mutex, allowing other threads to acquire the mutex and access the protected resource. It should be called after a critical section of code has been executed to release the lock and enable other threads to proceed.
+  - This function releases the lock on a mutex, allowing other threads to acquire the mutex and access the protected resource.
+  - It should be called after a critical section of code has been executed to release the lock and enable other threads to proceed.
 
 Another resource on threads:
 
