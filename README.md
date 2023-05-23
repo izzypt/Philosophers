@@ -94,7 +94,7 @@ with a mutex for each of them.
   - Threads can be terminated easily 
   - Communication between threads is faster.
 
-# Getting start with threads
+# Getting started with threads
 
 1 - To use threads in C , you need to include the <pthread.h> header file in your program.
   - When compiling , dont forget to include the flag ```-pthread```.
