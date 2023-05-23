@@ -40,6 +40,8 @@ with a mutex for each of them.
 # Core concepts
 
 - <ins>***What is a Thread?***</ins>
+
+To talk about thread, we must also be familiar with processes (In case, you're not, check out [this link](https://www.codequoi.com/en/creating-and-killing-child-processes-in-c/) by another 42 student)
   - A thread is a basic unit of execution of any process. 
   - A program comprises many processes and all the processes comprise much simpler units known as threads. 
   - So, the thread can be referred to as the basic unit of a process or it is the simpler unit that tother makes the CPU utilization
