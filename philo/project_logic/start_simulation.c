@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   start_simulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/05/23 12:31:33 by simao            ###   ########.fr       */
+/*   Updated: 2023/05/23 18:17:01 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+pthread_mutex_t    mutex;
 
 void	start_simulation(char **argv)
 {
@@ -28,8 +30,11 @@ void	start_simulation(char **argv)
 
 void	*thread_created(void *arg)
 {
+	pthread_t	tid;
+
+	tid = pthread_self();
 	if (arg || !arg)
-		printf("New thread created\n");
+		printf("New thread created, id : %lu\n", tid);
 	return (NULL);
 }
 
