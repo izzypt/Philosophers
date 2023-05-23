@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_simulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/05/22 20:32:03 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:31:33 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ void	*thread_created(void *arg)
 	return (NULL);
 }
 
-void thread_for_each_philo()
+void	thread_for_each_philo(void)
 {
-	int i;
-	pthread_t *thread;
+	int			i;
+	pthread_t	*threads;
 
 	i = 0;
 	printf("Cria uma thread por cada filosofo\n");
-	thread = malloc(sim()->number_of_philosophers * sizeof(pthread_t));
+	threads = malloc(sim()->number_of_philosophers * sizeof(pthread_t));
 	while (i < sim()->number_of_philosophers)
 	{
-		thread[i] = pthread_create(&thread[i], NULL, thread_created, NULL);
+		threads[i] = pthread_create(&threads[i], NULL, thread_created, NULL);
 		i++;
 	}
 	i = 0;
