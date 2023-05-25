@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:50:32 by simao             #+#    #+#             */
-/*   Updated: 2023/05/22 18:57:02 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:30:55 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	main(int argc, char **argv)
 {
 	if (argc > 2)
 		start_simulation(argv);
-	thread_for_each_philo();
+	create_threads();
+	//printf("time : %ld", get_time());
 	/*pthread_t	t1;
 	pthread_t	t2;
 
