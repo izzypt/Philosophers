@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/05/25 13:31:21 by simao            ###   ########.fr       */
+/*   Updated: 2023/05/26 19:13:40 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,24 @@ void	create_threads(void)
 	threads = sim()->threads;
 	while (i < sim()->number_of_philosophers)
 	{
-		threads[i] = pthread_create(&threads[i], NULL, thread_created, NULL);
+		pthread_create(&threads[i], NULL, thread_created, NULL);
 		pthread_join(threads[i], NULL);
 		printf("i = %d\n", i);
 		i++;
+	}
+}
+
+void	create_forks(void)
+{
+	int				i;
+	pthread_mutex_t	*forks;
+
+	i = 0;
+	sim()->forks = \
+	malloc(sim()->number_of_philosophers * sizeof(pthread_mutex_t));
+	forks = sim()->forks;
+	while (i < sim()->number_of_philosophers)
+	{
+		pthread_mutex_init(&forks[i], NULL);
 	}
 }

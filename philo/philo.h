@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/05/25 13:37:22 by simao            ###   ########.fr       */
+/*   Updated: 2023/05/26 19:07:56 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_simulation
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
 	pthread_t		*threads;
+	pthread_mutex_t	*forks;
 	t_philosopher	*philosophers;
 }	t_simulation;
 
