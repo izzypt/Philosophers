@@ -222,9 +222,47 @@ By using the mutex, we ensure that only one thread can access the critical secti
 
 - `pthread_create()`: 
   - This function is used to create a new thread of execution within a program. 
-  - It takes a function pointer as an argument, which specifies the starting point of the new thread's execution. 
-  - The newly created thread runs concurrently with the main thread, allowing for parallel execution.
   - On success, it returns 0, and on failure, it returns an error code. 
+  - The `pthread_create()` function creates a new thread and starts its execution by calling a specified function. This function runs concurrently with the calling thread, allowing multiple tasks to be performed simultaneously.
+
+    The `pthread_create()` function takes four arguments:
+
+    1. `thread`: A pointer to a `pthread_t` variable that will hold the identifier (tid) of the newly created thread. This identifier can be used later to refer to the thread in other pthread functions.
+
+    2. `attr`: An optional pointer to a `pthread_attr_t` structure that specifies attributes for the new thread, such as its stack size or scheduling policy. If `NULL` is passed, default attributes are used.
+
+    3. `start_routine`: A pointer to the function that will be executed by the new thread. This function should have a specific signature: `void *function_name(void *arg)`. It takes a single argument of type `void *`, which can be used to pass data to the thread function, and returns a `void *` pointer.
+
+    4. `arg`: An optional argument that can be passed to the thread function `start_routine`. It is of type `void *` and can be used to provide additional data or context to the thread function.
+
+    Here's an example usage of `pthread_create()`:
+
+    ```c
+    #include <pthread.h>
+    #include <stdio.h>
+
+    void *thread_func(void *arg) {
+        // Thread operations
+        printf("Hello from the new thread!\n");
+        return NULL;
+    }
+
+    int main() {
+        pthread_t tid;
+        pthread_create(&tid, NULL, thread_func, NULL);
+
+        // Continue with main thread operations
+        printf("Hello from the main thread!\n");
+
+        pthread_join(tid, NULL);  // Wait for the new thread to finish
+
+        return 0;
+    }
+    ```
+
+    In this example, `pthread_create()` is used to create a new thread that will execute the `thread_func()` function. The `tid` variable holds the identifier of the newly created thread. The `thread_func()` function simply prints a message. After creating the thread, the main thread continues its operations, printing its own message. Finally, `pthread_join()` is used to wait for the newly created thread to finish executing before the program terminates.
+
+    Note that `pthread_create()` returns 0 on success, and a non-zero error code if an error occurs during thread creation. It's a good practice to check the return value for errors when working with threads.
  
 - `pthread_join()`: 
   - It is used to wait for a thread to terminate and retrieve its exit status. 
@@ -238,9 +276,92 @@ By using the mutex, we ensure that only one thread can access the critical secti
   - This function is used to detach a thread, allowing it to run independently and release its resources when it terminates.
   - Once a thread is detached, its resources are automatically reclaimed by the system upon termination, and it cannot be joined using pthread_join().
 
+  - When a thread is detached, it means that its resources (memory, file descriptors, etc.) are automatically released and cleaned up by the system once the thread exits. The calling thread does not need to wait or join the detached thread to obtain its exit status.
+
+  - The `pthread_detach()` function takes a single argument, `tid`, which is the identifier of the thread to be detached. The `tid` is usually obtained when creating a thread using the `pthread_create()` function.
+
+  - Here's an example usage of `pthread_detach()`:
+
+      ```c
+      #include <pthread.h>
+      #include <stdio.h>
+
+      void *thread_func(void *arg) {
+          // Thread operations
+          return NULL;
+      }
+
+      int main() {
+          pthread_t tid;
+          pthread_create(&tid, NULL, thread_func, NULL);
+
+          // Detach the thread
+          pthread_detach(tid);
+
+          // Continue with main thread operations
+          // ...
+
+          pthread_exit(NULL);
+      }
+      ```
+
+    In this example, a new thread is created using `pthread_create()` and the `tid` is obtained. 
+    Then, `pthread_detach()` is called to detach the thread. After detaching, the main thread can continue with its operations without explicitly waiting for the detached thread to finish.
+
+    It's important to note that if a detached thread is not explicitly joined or detached using `pthread_detach()`, it remains in a "zombie" state even after it has finished executing, consuming system resources until the process terminates. 
+    Therefore, it's good practice to detach or join threads that are no longer needed to ensure proper cleanup.
+
 - `pthread_mutex_init()`: 
-  - It initializes a mutex (short for mutual exclusion), which is a synchronization primitive used to protect shared resources from simultaneous access by multiple threads. 
-  - It sets up the mutex variable with the required attributes before it can be used.
+  - The `pthread_mutex_init()` function initializes a mutex object with default attributes. A mutex ensures that only one thread can access a shared resource at a time, preventing data races and ensuring thread-safe access.
+
+    The `pthread_mutex_init()` function takes two arguments:
+
+    1. `mutex`: A pointer to a `pthread_mutex_t` variable that represents the mutex object. The function initializes this variable to represent a valid mutex.
+
+    2. `attr`: An optional pointer to a `pthread_mutexattr_t` structure that specifies attributes for the mutex. If `NULL` is passed, default attributes are used.
+
+    Here's an example usage of `pthread_mutex_init()`:
+
+    ```c
+    #include <pthread.h>
+    #include <stdio.h>
+
+    pthread_mutex_t mutex;  // Declare a mutex object
+
+    int shared_variable = 0;
+
+    void *thread_func(void *arg) {
+        pthread_mutex_lock(&mutex);  // Acquire the lock
+
+        // Thread-safe access to shared resource
+        shared_variable++;
+        printf("Thread: %d\n", shared_variable);
+
+        pthread_mutex_unlock(&mutex);  // Release the lock
+
+        return NULL;
+    }
+
+    int main() {
+        pthread_mutex_init(&mutex, NULL);  // Initialize the mutex
+
+        pthread_t tid1, tid2;
+        pthread_create(&tid1, NULL, thread_func, NULL);
+        pthread_create(&tid2, NULL, thread_func, NULL);
+
+        // Wait for both threads to finish
+        pthread_join(tid1, NULL);
+        pthread_join(tid2, NULL);
+
+        pthread_mutex_destroy(&mutex);  // Destroy the mutex
+
+        return 0;
+    }
+    ```
+
+    In this example, the `pthread_mutex_init()` function is used to initialize the `mutex` object. The `thread_func()` function is executed by multiple threads. Before accessing the shared variable `shared_variable`, each thread acquires the lock using `pthread_mutex_lock()`, ensuring exclusive access. After modifying the variable, the thread releases the lock using `pthread_mutex_unlock()`. The main thread waits for both threads to finish using `pthread_join()`. Finally, the `pthread_mutex_destroy()` function is called to destroy the mutex object and release its associated resources.
+
+    It's important to note that mutexes should be initialized before they are used, and they should be destroyed when they are no longer needed to avoid resource leaks.
 
 - `pthread_mutex_destroy()`: 
    - This function is used to destroy a mutex object, releasing any resources associated with it. 
