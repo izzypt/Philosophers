@@ -222,9 +222,47 @@ By using the mutex, we ensure that only one thread can access the critical secti
 
 - `pthread_create()`: 
   - This function is used to create a new thread of execution within a program. 
-  - It takes a function pointer as an argument, which specifies the starting point of the new thread's execution. 
-  - The newly created thread runs concurrently with the main thread, allowing for parallel execution.
   - On success, it returns 0, and on failure, it returns an error code. 
+  - The `pthread_create()` function creates a new thread and starts its execution by calling a specified function. This function runs concurrently with the calling thread, allowing multiple tasks to be performed simultaneously.
+
+    The `pthread_create()` function takes four arguments:
+
+    1. `thread`: A pointer to a `pthread_t` variable that will hold the identifier (tid) of the newly created thread. This identifier can be used later to refer to the thread in other pthread functions.
+
+    2. `attr`: An optional pointer to a `pthread_attr_t` structure that specifies attributes for the new thread, such as its stack size or scheduling policy. If `NULL` is passed, default attributes are used.
+
+    3. `start_routine`: A pointer to the function that will be executed by the new thread. This function should have a specific signature: `void *function_name(void *arg)`. It takes a single argument of type `void *`, which can be used to pass data to the thread function, and returns a `void *` pointer.
+
+    4. `arg`: An optional argument that can be passed to the thread function `start_routine`. It is of type `void *` and can be used to provide additional data or context to the thread function.
+
+    Here's an example usage of `pthread_create()`:
+
+    ```c
+    #include <pthread.h>
+    #include <stdio.h>
+
+    void *thread_func(void *arg) {
+        // Thread operations
+        printf("Hello from the new thread!\n");
+        return NULL;
+    }
+
+    int main() {
+        pthread_t tid;
+        pthread_create(&tid, NULL, thread_func, NULL);
+
+        // Continue with main thread operations
+        printf("Hello from the main thread!\n");
+
+        pthread_join(tid, NULL);  // Wait for the new thread to finish
+
+        return 0;
+    }
+    ```
+
+In this example, `pthread_create()` is used to create a new thread that will execute the `thread_func()` function. The `tid` variable holds the identifier of the newly created thread. The `thread_func()` function simply prints a message. After creating the thread, the main thread continues its operations, printing its own message. Finally, `pthread_join()` is used to wait for the newly created thread to finish executing before the program terminates.
+
+Note that `pthread_create()` returns 0 on success, and a non-zero error code if an error occurs during thread creation. It's a good practice to check the return value for errors when working with threads.
  
 - `pthread_join()`: 
   - It is used to wait for a thread to terminate and retrieve its exit status. 
