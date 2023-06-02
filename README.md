@@ -312,8 +312,56 @@ By using the mutex, we ensure that only one thread can access the critical secti
     Therefore, it's good practice to detach or join threads that are no longer needed to ensure proper cleanup.
 
 - `pthread_mutex_init()`: 
-  - It initializes a mutex (short for mutual exclusion), which is a synchronization primitive used to protect shared resources from simultaneous access by multiple threads. 
-  - It sets up the mutex variable with the required attributes before it can be used.
+  - The `pthread_mutex_init()` function initializes a mutex object with default attributes. A mutex ensures that only one thread can access a shared resource at a time, preventing data races and ensuring thread-safe access.
+
+    The `pthread_mutex_init()` function takes two arguments:
+
+    1. `mutex`: A pointer to a `pthread_mutex_t` variable that represents the mutex object. The function initializes this variable to represent a valid mutex.
+
+    2. `attr`: An optional pointer to a `pthread_mutexattr_t` structure that specifies attributes for the mutex. If `NULL` is passed, default attributes are used.
+
+    Here's an example usage of `pthread_mutex_init()`:
+
+    ```c
+    #include <pthread.h>
+    #include <stdio.h>
+
+    pthread_mutex_t mutex;  // Declare a mutex object
+
+    int shared_variable = 0;
+
+    void *thread_func(void *arg) {
+        pthread_mutex_lock(&mutex);  // Acquire the lock
+
+        // Thread-safe access to shared resource
+        shared_variable++;
+        printf("Thread: %d\n", shared_variable);
+
+        pthread_mutex_unlock(&mutex);  // Release the lock
+
+        return NULL;
+    }
+
+    int main() {
+        pthread_mutex_init(&mutex, NULL);  // Initialize the mutex
+
+        pthread_t tid1, tid2;
+        pthread_create(&tid1, NULL, thread_func, NULL);
+        pthread_create(&tid2, NULL, thread_func, NULL);
+
+        // Wait for both threads to finish
+        pthread_join(tid1, NULL);
+        pthread_join(tid2, NULL);
+
+        pthread_mutex_destroy(&mutex);  // Destroy the mutex
+
+        return 0;
+    }
+    ```
+
+    In this example, the `pthread_mutex_init()` function is used to initialize the `mutex` object. The `thread_func()` function is executed by multiple threads. Before accessing the shared variable `shared_variable`, each thread acquires the lock using `pthread_mutex_lock()`, ensuring exclusive access. After modifying the variable, the thread releases the lock using `pthread_mutex_unlock()`. The main thread waits for both threads to finish using `pthread_join()`. Finally, the `pthread_mutex_destroy()` function is called to destroy the mutex object and release its associated resources.
+
+    It's important to note that mutexes should be initialized before they are used, and they should be destroyed when they are no longer needed to avoid resource leaks.
 
 - `pthread_mutex_destroy()`: 
    - This function is used to destroy a mutex object, releasing any resources associated with it. 
