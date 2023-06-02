@@ -260,9 +260,9 @@ By using the mutex, we ensure that only one thread can access the critical secti
     }
     ```
 
-In this example, `pthread_create()` is used to create a new thread that will execute the `thread_func()` function. The `tid` variable holds the identifier of the newly created thread. The `thread_func()` function simply prints a message. After creating the thread, the main thread continues its operations, printing its own message. Finally, `pthread_join()` is used to wait for the newly created thread to finish executing before the program terminates.
+    In this example, `pthread_create()` is used to create a new thread that will execute the `thread_func()` function. The `tid` variable holds the identifier of the newly created thread. The `thread_func()` function simply prints a message. After creating the thread, the main thread continues its operations, printing its own message. Finally, `pthread_join()` is used to wait for the newly created thread to finish executing before the program terminates.
 
-Note that `pthread_create()` returns 0 on success, and a non-zero error code if an error occurs during thread creation. It's a good practice to check the return value for errors when working with threads.
+    Note that `pthread_create()` returns 0 on success, and a non-zero error code if an error occurs during thread creation. It's a good practice to check the return value for errors when working with threads.
  
 - `pthread_join()`: 
   - It is used to wait for a thread to terminate and retrieve its exit status. 
