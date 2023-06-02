@@ -238,6 +238,41 @@ By using the mutex, we ensure that only one thread can access the critical secti
   - This function is used to detach a thread, allowing it to run independently and release its resources when it terminates.
   - Once a thread is detached, its resources are automatically reclaimed by the system upon termination, and it cannot be joined using pthread_join().
 
+  - When a thread is detached, it means that its resources (memory, file descriptors, etc.) are automatically released and cleaned up by the system once the thread exits. The calling thread does not need to wait or join the detached thread to obtain its exit status.
+
+  - The `pthread_detach()` function takes a single argument, `tid`, which is the identifier of the thread to be detached. The `tid` is usually obtained when creating a thread using the `pthread_create()` function.
+
+  - Here's an example usage of `pthread_detach()`:
+
+      ```c
+      #include <pthread.h>
+      #include <stdio.h>
+
+      void *thread_func(void *arg) {
+          // Thread operations
+          return NULL;
+      }
+
+      int main() {
+          pthread_t tid;
+          pthread_create(&tid, NULL, thread_func, NULL);
+
+          // Detach the thread
+          pthread_detach(tid);
+
+          // Continue with main thread operations
+          // ...
+
+          pthread_exit(NULL);
+      }
+      ```
+
+    In this example, a new thread is created using `pthread_create()` and the `tid` is obtained. 
+    Then, `pthread_detach()` is called to detach the thread. After detaching, the main thread can continue with its operations without explicitly waiting for the detached thread to finish.
+
+    It's important to note that if a detached thread is not explicitly joined or detached using `pthread_detach()`, it remains in a "zombie" state even after it has finished executing, consuming system resources until the process terminates. 
+    Therefore, it's good practice to detach or join threads that are no longer needed to ensure proper cleanup.
+
 - `pthread_mutex_init()`: 
   - It initializes a mutex (short for mutual exclusion), which is a synchronization primitive used to protect shared resources from simultaneous access by multiple threads. 
   - It sets up the mutex variable with the required attributes before it can be used.
