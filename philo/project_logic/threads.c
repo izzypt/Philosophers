@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/03 14:43:21 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/03 21:11:55 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,18 @@ void	*t_handler(void *arg)
 	t_philosopher	philo;
 
 	philo = *(t_philosopher *)arg;
-	take_forks(&philo);
+	while (!sim()->any_death)
+	{
+		take_forks(&philo);
+		usleep(50);
+	}	
 	return (NULL);
 }
 
 /*
 - Aloca memoria necessaria para cada thread.
-- Criar uma thread por cada filosofo.
-- 
+- Cria uma thread por cada filosofo.
+- Espera que cada thread termine antes de terminar a execucao.
 */
 void	init_threads(void)
 {

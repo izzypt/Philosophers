@@ -1,40 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   sleep.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 19:53:55 by smagalha          #+#    #+#             */
-/*   Updated: 2023/06/03 21:11:52 by smagalha         ###   ########.fr       */
+/*   Created: 2023/06/03 21:28:12 by smagalha          #+#    #+#             */
+/*   Updated: 2023/06/03 21:44:40 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-long int	get_time(void)
+void			philo_zZz(t_philosopher *philo)
 {
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
-}
-
-long int	get_time_ms(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return ((time.tv_usec / 1000));
-}
-
-/*
-- Sleeps by the given time in ms
-*/
-void	sleep_ms(long int ms)
-{
-	long int	sleep;
-
-	sleep = ms * 1000;
-	usleep(sleep);
+    printf("%lu %d is sleeping\n", get_time(), philo->id);
+    sleep_ms(sim()->time_to_sleep);
+    printf("%lu %d is thinking\n", get_time(), philo->id);
 }

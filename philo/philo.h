@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/03 19:08:20 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/03 21:42:44 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_simulation
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				max_meals;
+	int				any_death;
 	t_philosopher	*philos;
 	pthread_mutex_t	*forks;
 	pthread_t		*threads;
@@ -66,6 +67,8 @@ void			init_forks(int num_of_fork);
 /* Fork Related*/
 void			take_forks(t_philosopher *philo);
 
+/* Sleep Related*/
+void			philo_zZz(t_philosopher *philo);
 /* Util Functions */
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
