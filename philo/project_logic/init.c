@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/06/03 21:09:51 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/03 23:42:10 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_sim(char **argv)
 	printf("time_to_eat = %d\n", sim()->time_to_eat);
 	printf("time_to_sleep = %d\n", sim()->time_to_sleep);
 	printf("time_to_die = %d\n", sim()->time_to_die);
-	printf("time limit = %ld\n", sim()->start_time + sim()->time_to_eat);
+	printf("time limit = %ld\n", sim()->start_time + sim()->time_to_die);
 	printf("================================================================\n");
 	init_forks(sim()->num_of_philo);
 	init_philos();
@@ -58,8 +58,9 @@ void	init_philos(void)
 		sim()->philos[i].id = i + 1;
 		sim()->philos[i].lfork = i;
 		sim()->philos[i].rfork = ((i + 1) % sim()->num_of_philo);
+		sim()->philos[i].is_eating = 0;
 		sim()->philos[i].num_of_meals = 0;
-		sim()->philos[i].time_limit = sim()->start_time + sim()->time_to_eat;
+		sim()->philos[i].time_limit = sim()->start_time + sim()->time_to_die;
 		i++;
 	}
 	init_threads();
