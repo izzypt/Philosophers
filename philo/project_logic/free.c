@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 19:53:55 by smagalha          #+#    #+#             */
-/*   Updated: 2023/06/03 19:08:01 by simao            ###   ########.fr       */
+/*   Created: 2023/06/02 22:10:46 by simao             #+#    #+#             */
+/*   Updated: 2023/06/03 14:26:03 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-long int	get_time(void)
+void	free_all(void)
 {
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
-}
-
-long int	get_time_ms(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return ((time.tv_usec / 1000));
-}
-
-void	sleep_ms(long int ms)
-{
-	long int	sleep;
-
-	sleep = ms * 1000;
-	usleep(sleep);
+	free(sim()->forks);
+	free(sim()->philos);
+	free(sim()->threads);
 }

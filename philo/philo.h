@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/05/26 19:07:56 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/03 19:08:20 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,47 @@
 # include <pthread.h>
 # include <stdint.h>
 
+struct	s_simulation;
+
 /* Structs */
 typedef struct t_philosopher
 {
-	int			id;
-	long int	last_meal;
-	int			dead;
+	int					id;
+	int					lfork;
+	int					rfork;
+	long int			last_meal;
+	int					num_of_meals;
+	int					is_eating;
+	long int			time_limit;
+	struct s_simulation	*sim;
 }	t_philosopher;
 
 typedef struct s_simulation
 {
 	long int		start_time;
-	int				number_of_philosophers;
-	int				number_of_forks;
+	int				num_of_philo;
+	int				num_of_forks;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				number_of_times_each_philosopher_must_eat;
-	pthread_t		*threads;
+	int				max_meals;
+	t_philosopher	*philos;
 	pthread_mutex_t	*forks;
-	t_philosopher	*philosophers;
+	pthread_t		*threads;
 }	t_simulation;
 
 
 /* Struct Getters */
 t_simulation	*sim(void);
 
-/* Simulation Related Functions */
-void			start_simulation(char **argv);
-void			create_philos(void);
-void			create_threads(void);
+/* Init Functions */
+void			init_sim(char **argv);
+void			init_philos(void);
+void			init_threads(void);
+void			init_forks(int num_of_fork);
+
+/* Fork Related*/
+void			take_forks(t_philosopher *philo);
 
 /* Util Functions */
 int				ft_isdigit(int c);
@@ -63,7 +74,11 @@ void			*ft_calloc(size_t count, size_t size);
 
 /*Time Function*/
 long int		get_time(void);
+long int		get_time_ms(void);
 void			sleep_ms(long int ms);
+
+/* Memory Related*/
+void			free_all(void);
 
 /* Messages */
 # define FORK "has taken a fork"
