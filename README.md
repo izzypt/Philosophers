@@ -370,6 +370,21 @@ By using the mutex, we ensure that only one thread can access the critical secti
 - `pthread_mutex_lock()`: 
   - It acquires a lock on a mutex, making the calling thread the owner of the mutex. 
   - If the mutex is already locked by another thread, the calling thread will block until it can acquire the lock. This function is used to enforce mutual exclusion and ensure that only one thread can access a critical section of code at a time.
+  - `pthread_mutex_lock()` is a function in the POSIX thread library (pthread) that is used to acquire a mutex (short for mutual exclusion). A mutex is a synchronization primitive that ensures only one thread can access a shared resource or a critical section of code at a time, preventing simultaneous access and potential data corruption.
+
+    Here is a step-by-step explanation of how `pthread_mutex_lock()` works:
+
+    1. Mutex Initialization: Before using a mutex, it needs to be initialized using the `pthread_mutex_init()` function. This function sets the initial state of the mutex to an unlocked state.
+
+    2. Locking the Mutex: When a thread wants to access a shared resource or a critical section of code, it calls `pthread_mutex_lock()` to acquire the mutex. If the mutex is currently unlocked, the calling thread successfully acquires it and continues execution. The mutex becomes locked, and any subsequent threads trying to acquire it will be blocked until the mutex is unlocked.
+
+    3. Blocking Behavior: If the mutex is already locked by another thread when `pthread_mutex_lock()` is called, the calling thread will be blocked and put into a waiting state. It will remain blocked until the mutex is unlocked by the thread currently holding it.
+
+    4. Unlocking the Mutex: When a thread completes its work on the shared resource or critical section of code, it must release the mutex to allow other threads to access it. This is done using the `pthread_mutex_unlock()` function. Once the mutex is unlocked, one of the waiting threads will be unblocked and acquire the mutex, while the rest will continue waiting.
+
+    It's important to note that the order in which blocked threads acquire the mutex after it's unlocked is not guaranteed. The system determines which waiting thread gets the mutex based on its own scheduling algorithm.
+
+    Using `pthread_mutex_lock()` and `pthread_mutex_unlock()` correctly ensures that only one thread accesses a shared resource at a time, preventing race conditions and maintaining data integrity.
 
 - `pthread_mutex_unlock()`: 
   - This function releases the lock on a mutex, allowing other threads to acquire the mutex and access the protected resource.
