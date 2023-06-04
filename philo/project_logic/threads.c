@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/03 21:11:55 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/04 03:32:01 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*t_handler(void *arg)
 	while (!sim()->any_death)
 	{
 		take_forks(&philo);
-		usleep(50);
+		sleep_ms(45);
 	}	
 	return (NULL);
 }
