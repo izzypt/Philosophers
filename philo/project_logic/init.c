@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 13:59:06 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 15:43:26 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	init_philos(void)
 	printf("| Creating philos...                                         |\n");
 	while (i < sim()->num_of_philo)
 	{
-		sim()->philos[i].id = i;
+		sim()->philos[i].id = i + 1;
 		sim()->philos[i].rfork = i;
 		sim()->philos[i].lfork = ((i + 1) % sim()->num_of_philo);
 		sim()->philos[i].is_eating = 0;

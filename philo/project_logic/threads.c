@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 13:05:23 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 16:41:00 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
 
 void	*monitor(void *arg)
 {
@@ -33,6 +32,8 @@ void	*monitor(void *arg)
 /*
 - This is the thread handler.
 - The first function ran when the thread is created.
+- It adds a delay to the even number of philosophers.
+- Even philosophers threads will arrive later than uneven threads.
 */
 void	*t_handler(void *arg)
 {
@@ -41,7 +42,8 @@ void	*t_handler(void *arg)
 	philo = (t_philosopher *)arg;
 	pthread_create(&philo->thread, NULL, monitor, (void *)philo);
 	pthread_detach(philo->thread);
-	//printf("philo %d thread running @%lu\n", philo->id, get_time() - sim()->start_time);
+	if (philo->id % 2 == 0)
+		sleep_ms(5);
 	while (!sim()->any_death)
 	{
 		take_forks(philo);

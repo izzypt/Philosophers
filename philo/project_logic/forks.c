@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:06:23 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 13:02:53 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 16:36:47 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,12 @@ void	init_forks(int num_of_fork)
 */
 void	take_forks(t_philosopher *philo)
 {
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(&sim()->forks[philo->rfork]);
-		pthread_mutex_lock(&sim()->forks[philo->lfork]);
-	}
-	else
-	{
-		pthread_mutex_lock(&sim()->forks[philo->lfork]);
-		pthread_mutex_lock(&sim()->forks[philo->rfork]);
-	}
-	philo->time_limit = get_time() + sim()->time_to_eat + sim()->time_to_die;
-	philo->last_meal = get_time() + sim()->time_to_eat;
-	eat(philo);
+	pthread_mutex_lock(&sim()->forks[philo->lfork]);
+	pthread_mutex_lock(&sim()->forks[philo->rfork]);
+	philo->time_limit = get_time() + sim()->time_to_die;
+	philo->last_meal = get_time();
 	printf("%lu %d took a fork\n", get_time() - sim()->start_time, philo->id);
+	eat(philo);
 }
 
 void	eat(t_philosopher *philo)
@@ -59,7 +51,6 @@ void	eat(t_philosopher *philo)
 	philo->is_eating = 1;
 	printf("%lu %d is eating\n", get_time() - sim()->start_time, philo->id);
 	sleep_ms(sim()->time_to_eat);
-	printf("%lu %d last meal was %lu and next meal should be until %lu\n", get_time() - sim()->start_time, philo->id, philo->last_meal - sim()->start_time ,philo->time_limit - sim()->start_time);
 	philo->is_eating = 0;
 	release_forks(philo);
 }
