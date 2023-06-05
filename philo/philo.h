@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/03 21:42:44 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:24:47 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 /* Libraries */
+
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -27,6 +28,7 @@
 struct	s_simulation;
 
 /* Structs */
+
 typedef struct t_philosopher
 {
 	int					id;
@@ -36,6 +38,7 @@ typedef struct t_philosopher
 	int					num_of_meals;
 	int					is_eating;
 	long int			time_limit;
+	pthread_t			thread;
 	struct s_simulation	*sim;
 }	t_philosopher;
 
@@ -56,34 +59,46 @@ typedef struct s_simulation
 
 
 /* Struct Getters */
+
 t_simulation	*sim(void);
 
 /* Init Functions */
+
 void			init_sim(char **argv);
 void			init_philos(void);
 void			init_threads(void);
 void			init_forks(int num_of_fork);
+void			print_stats(void);
 
 /* Fork Related*/
+
 void			take_forks(t_philosopher *philo);
+void			release_forks(t_philosopher *philo);
+void			eat(t_philosopher *philo);
 
 /* Sleep Related*/
+
 void			philo_zZz(t_philosopher *philo);
+
 /* Util Functions */
+
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
 void			*ft_memset(void *b, int c, size_t len);
 void			*ft_calloc(size_t count, size_t size);
 
 /*Time Function*/
+
 long int		get_time(void);
 long int		get_time_ms(void);
 void			sleep_ms(long int ms);
 
 /* Memory Related*/
+
 void			free_all(void);
 
 /* Messages */
+
 # define FORK "has taken a fork"
 # define EAT "is eating"
 # define SLEEP "is sleeping"

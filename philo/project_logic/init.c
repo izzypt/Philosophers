@@ -6,15 +6,16 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/06/03 23:42:10 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 12:29:31 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
 /*
-- Esta função inicia a simulação.
+- Inicia a simulação.
 - Guarda os valores dos argumentos na struct.
+- Imprime os valores iniciais da simulação.
 - Chama a funçao necessaria para criar os forks.
 - Chama a função necessária para criar os filosofos.
 */
@@ -28,22 +29,15 @@ void	init_sim(char **argv)
 	sim()->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		sim()->max_meals = ft_atoi(argv[5]);
-	printf("Checking if args were correctly stored in struct: \n");
-	printf("================================================================\n");
-	printf("start_time = %ld\n", sim()->start_time);
-	printf("num_of_philo = %d\n", sim()->num_of_philo);
-	printf("time_to_eat = %d\n", sim()->time_to_eat);
-	printf("time_to_sleep = %d\n", sim()->time_to_sleep);
-	printf("time_to_die = %d\n", sim()->time_to_die);
-	printf("time limit = %ld\n", sim()->start_time + sim()->time_to_die);
-	printf("================================================================\n");
+	print_stats();
 	init_forks(sim()->num_of_philo);
 	init_philos();
 }
 
 /*
-- Esta função aloca memoria necessaria para o array de filosofos.
-- Atribui a cada filo um id, os garfos que pode segurar e o nº de refeicoes.
+- Aloca memoria necessaria para o array de filosofos.
+- Atribui a cada filo um id
+- Define os garfos que pode segurar, o nº de refeicoes, etc...
 - No, fim chama a função necessaria para criar as threads.
 */
 void	init_philos(void)
@@ -52,7 +46,7 @@ void	init_philos(void)
 
 	i = 0;
 	sim()->philos = malloc(sizeof(t_philosopher) * sim()->num_of_philo);
-	printf("Creating philos...\n");
+	printf("| Creating philos...                                         |\n");
 	while (i < sim()->num_of_philo)
 	{
 		sim()->philos[i].id = i + 1;
@@ -64,24 +58,4 @@ void	init_philos(void)
 		i++;
 	}
 	init_threads();
-}
-
-/*
-- Esta função aloca memoria para o array de mutexes dos garfos.
-- Inicia um nº de mutex igual ao nº de filosofos.
-*/
-void	init_forks(int num_of_fork)
-{
-	int				i;
-	pthread_mutex_t	*forks;
-
-	i = 0;
-	printf("Creating forks...\n");
-	sim()->forks = malloc(num_of_fork * sizeof(pthread_mutex_t));
-	forks = sim()->forks;
-	while (i < num_of_fork)
-	{
-		pthread_mutex_init(&forks[i], NULL);
-		i++;
-	}
 }
