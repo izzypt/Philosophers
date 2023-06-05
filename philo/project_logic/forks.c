@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:06:23 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 16:36:47 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:37:46 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 - Esta função aloca memoria para o array de mutexes dos garfos.
-- Inicia um nº de mutex igual ao nº de filosofos.
+- Cria e inicia um nº de mutex igual ao nº de filosofos.
 */
 void	init_forks(int num_of_fork)
 {
@@ -50,6 +50,7 @@ void	eat(t_philosopher *philo)
 {
 	philo->is_eating = 1;
 	printf("%lu %d is eating\n", get_time() - sim()->start_time, philo->id);
+	philo->num_of_meals++;
 	sleep_ms(sim()->time_to_eat);
 	philo->is_eating = 0;
 	release_forks(philo);

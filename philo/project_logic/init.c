@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 15:43:26 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:13:18 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ void	init_sim(char **argv)
 	sim()->time_to_die = ft_atoi(argv[2]);
 	sim()->time_to_eat = ft_atoi(argv[3]);
 	sim()->time_to_sleep = ft_atoi(argv[4]);
+	sim()->full_philos = 0;
 	if (argv[5])
 		sim()->max_meals = ft_atoi(argv[5]);
+	else
+		sim()->max_meals = 0;
 	print_stats();
 	init_forks(sim()->num_of_philo);
 	init_philos();

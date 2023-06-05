@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 12:24:47 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 18:06:11 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_simulation
 	int				time_to_sleep;
 	int				max_meals;
 	int				any_death;
+	int				full_philos;
 	t_philosopher	*philos;
 	pthread_mutex_t	*forks;
 	pthread_t		*threads;

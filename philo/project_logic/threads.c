@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 16:41:00 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:16:59 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
+/*
+- Monitoriza cada um dos filosofos a cada 5 ms.
+- Se o tempo actual for superior ao limite para comer o program termina,
+*/
 void	*monitor(void *arg)
 {
 	t_philosopher	*philo;
@@ -19,9 +22,17 @@ void	*monitor(void *arg)
 	philo = (t_philosopher *)arg;
 	while (1)
 	{
+		if (sim()->max_meals == philo->num_of_meals)
+		{
+			sim()->full_philos += 1;
+			break ;
+		}
 		if (get_time() > philo->time_limit)
 		{
-			printf("Philo %d died @%lu. Time limit was %lu\n", philo->id, get_time() - sim()->start_time, philo->time_limit - sim()->start_time);
+			printf("@%lu Philo %d died . Time limit was %lu\n", \
+			get_time() - sim()->start_time, \
+			philo->id, \
+			philo->time_limit - sim()->start_time);
 			exit(0);
 			sleep_ms(5);
 		}
@@ -48,6 +59,11 @@ void	*t_handler(void *arg)
 	{
 		take_forks(philo);
 		sleep_ms(1);
+		if (sim()->max_meals && (philo->num_of_meals == sim()->max_meals))
+		{
+			printf("Philo %d is full.\n", philo->id);
+			break ;
+		}
 	}	
 	return (NULL);
 }
