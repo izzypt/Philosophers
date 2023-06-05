@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:50:32 by simao             #+#    #+#             */
-/*   Updated: 2023/06/03 14:33:41 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 18:32:39 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ int	main(int argc, char **argv)
 {
 	if (argc > 2)
 		init_sim(argv);
-	free_all();
+	free_and_exit();
 	return (0);
 }

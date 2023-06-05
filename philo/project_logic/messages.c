@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:23:13 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 12:42:19 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 18:40:02 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	print_stats(void)
 {
 	printf("==============================================================\n");
-	printf("|                    Philosophers                            |\n");
+	printf("|                    Philosophers Simulation                 |\n");
 	printf("==============================================================\n");
 	printf("|                Start : %ld                                   |\n", \
 	sim()->start_time - sim()->start_time);

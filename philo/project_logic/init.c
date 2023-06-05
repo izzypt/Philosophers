@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 18:13:18 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 18:50:08 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_philos(void)
 		sim()->philos[i].lfork = ((i + 1) % sim()->num_of_philo);
 		sim()->philos[i].is_eating = 0;
 		sim()->philos[i].num_of_meals = 0;
+		sim()->philos[i].isfull = 0;
 		sim()->philos[i].time_limit = sim()->start_time + sim()->time_to_die;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 18:16:59 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 18:51:30 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,13 @@ void	*monitor(void *arg)
 	philo = (t_philosopher *)arg;
 	while (1)
 	{
-		if (sim()->max_meals == philo->num_of_meals)
-		{
-			sim()->full_philos += 1;
-			break ;
-		}
 		if (get_time() > philo->time_limit)
 		{
-			printf("@%lu Philo %d died . Time limit was %lu\n", \
-			get_time() - sim()->start_time, \
-			philo->id, \
-			philo->time_limit - sim()->start_time);
-			exit(0);
-			sleep_ms(5);
+			if (philo->isfull)
+				break ;
+			printf("%lu %d died.\n", get_time() - sim()->start_time, philo->id);
+			free_and_exit();
+			break ;
 		}
 	}
 	return (NULL);
@@ -55,15 +49,17 @@ void	*t_handler(void *arg)
 	pthread_detach(philo->thread);
 	if (philo->id % 2 == 0)
 		sleep_ms(5);
-	while (!sim()->any_death)
+	while (1)
 	{
-		take_forks(philo);
-		sleep_ms(1);
-		if (sim()->max_meals && (philo->num_of_meals == sim()->max_meals))
+		if (sim()->max_meals > 0 && (philo->num_of_meals == sim()->max_meals))
 		{
+			philo->isfull = 1;
 			printf("Philo %d is full.\n", philo->id);
 			break ;
 		}
+		if (sim()->any_death)
+			break ;
+		take_forks(philo);
 	}	
 	return (NULL);
 }

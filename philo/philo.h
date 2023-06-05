@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 18:06:11 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 18:49:36 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct t_philosopher
 	int					rfork;
 	long int			last_meal;
 	int					num_of_meals;
+	int					isfull;
 	int					is_eating;
 	long int			time_limit;
 	pthread_t			thread;
@@ -96,7 +97,7 @@ void			sleep_ms(long int ms);
 
 /* Memory Related*/
 
-void			free_all(void);
+void			free_and_exit(void);
 
 /* Messages */
 
