@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 18:50:08 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 20:25:31 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	init_philos(void)
 		sim()->philos[i].num_of_meals = 0;
 		sim()->philos[i].isfull = 0;
 		sim()->philos[i].time_limit = sim()->start_time + sim()->time_to_die;
+		pthread_mutex_init(&sim()->write_mutex, NULL);
 		i++;
 	}
 	init_threads();

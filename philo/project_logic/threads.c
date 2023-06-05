@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 18:51:30 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 19:59:17 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*monitor(void *arg)
 			if (philo->isfull)
 				break ;
 			printf("%lu %d died.\n", get_time() - sim()->start_time, philo->id);
-			free_and_exit();
+			sim()->any_death = 1;
 			break ;
 		}
 	}
@@ -51,14 +51,14 @@ void	*t_handler(void *arg)
 		sleep_ms(5);
 	while (1)
 	{
+		if (sim()->any_death)
+			break ;
 		if (sim()->max_meals > 0 && (philo->num_of_meals == sim()->max_meals))
 		{
 			philo->isfull = 1;
 			printf("Philo %d is full.\n", philo->id);
 			break ;
 		}
-		if (sim()->any_death)
-			break ;
 		take_forks(philo);
 	}	
 	return (NULL);

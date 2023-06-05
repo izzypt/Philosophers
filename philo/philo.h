@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 18:49:36 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/05 20:15:07 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_simulation
 	int				any_death;
 	int				full_philos;
 	t_philosopher	*philos;
+	pthread_mutex_t	write_mutex;
 	pthread_mutex_t	*forks;
 	pthread_t		*threads;
 }	t_simulation;
@@ -70,7 +71,11 @@ void			init_sim(char **argv);
 void			init_philos(void);
 void			init_threads(void);
 void			init_forks(int num_of_fork);
+
+/* Init Messages */
+
 void			print_stats(void);
+void			print_message(int code, int philo_id);
 
 /* Fork Related*/
 
