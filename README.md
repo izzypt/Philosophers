@@ -18,6 +18,7 @@ a philosopher dies of starvation.
 
 ![image](https://github.com/izzypt/Philosophers/assets/73948790/a8bf1018-e804-41a8-8407-7f9fb58d904e)
 
+![image](https://github.com/izzypt/Philosophers/assets/73948790/12729974-4dab-4fb8-9064-e0335f2ea448)
 
 # Project rules
 
