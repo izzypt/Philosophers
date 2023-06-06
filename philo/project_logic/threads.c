@@ -6,7 +6,7 @@
 /*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 18:30:23 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:51:24 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	*monitor(void *arg)
 			if (philo->ishappy)
 				break ;
 			print_message(1, philo->id);
-			sim()->any_death = 1;
 			break ;
 		}
 	}

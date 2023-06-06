@@ -6,7 +6,7 @@
 /*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:10:46 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 18:26:25 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:18:42 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	free_and_exit(void)
 	while (i < sim()->num_of_philo)
 	{
 		pthread_mutex_unlock(&sim()->forks[i]);
+		pthread_mutex_destroy(&sim()->forks[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&sim()->write_mutex);
 	free(sim()->forks);
 	free(sim()->philos);
 	free(sim()->threads);

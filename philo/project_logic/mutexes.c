@@ -6,7 +6,7 @@
 /*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 18:32:50 by smagalha          #+#    #+#             */
-/*   Updated: 2023/06/06 18:41:20 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:54:05 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ void	init_mutexes(int num_of_fork)
 		pthread_mutex_init(&forks[i], NULL);
 		i++;
 	}
+	pthread_mutex_init(&sim()->write_mutex, NULL);
 }
