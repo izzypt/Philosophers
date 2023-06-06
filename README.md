@@ -221,7 +221,7 @@ By using the mutex, we ensure that only one thread can access the critical secti
 
 # A summary on the allowed functions for the project
 
-- `pthread_create()`: 
+## `pthread_create()`: 
   - This function is used to create a new thread of execution within a program. 
   - On success, it returns 0, and on failure, it returns an error code. 
   - The `pthread_create()` function creates a new thread and starts its execution by calling a specified function. This function runs concurrently with the calling thread, allowing multiple tasks to be performed simultaneously.
@@ -265,7 +265,7 @@ By using the mutex, we ensure that only one thread can access the critical secti
 
     Note that `pthread_create()` returns 0 on success, and a non-zero error code if an error occurs during thread creation. It's a good practice to check the return value for errors when working with threads.
  
-- `pthread_join()`: 
+## `pthread_join()`: 
   - It is used to wait for a thread to terminate and retrieve its exit status. 
   - When a thread is joined, the calling thread blocks until the specified thread finishes execution. 
   - It allows for synchronization between threads and enables the retrieval of any return value or exit status from the joined thread.
@@ -273,7 +273,7 @@ By using the mutex, we ensure that only one thread can access the critical secti
   - The results of multiple simultaneous calls to pthread_join() specifying the same target thread are undefined.
   - Return values : On success, it returns 0, and on failure, it returns an error code.
 
-- `pthread_detach()`: 
+## `pthread_detach()`: 
   - This function is used to detach a thread, allowing it to run independently and release its resources when it terminates.
   - Once a thread is detached, its resources are automatically reclaimed by the system upon termination, and it cannot be joined using pthread_join().
 
@@ -312,7 +312,7 @@ By using the mutex, we ensure that only one thread can access the critical secti
     It's important to note that if a detached thread is not explicitly joined or detached using `pthread_detach()`, it remains in a "zombie" state even after it has finished executing, consuming system resources until the process terminates. 
     Therefore, it's good practice to detach or join threads that are no longer needed to ensure proper cleanup.
 
-- `pthread_mutex_init()`: 
+## `pthread_mutex_init()`: 
   - The `pthread_mutex_init()` function initializes a mutex object with default attributes. A mutex ensures that only one thread can access a shared resource at a time, preventing data races and ensuring thread-safe access.
 
     The `pthread_mutex_init()` function takes two arguments:
@@ -364,9 +364,53 @@ By using the mutex, we ensure that only one thread can access the critical secti
 
     It's important to note that mutexes should be initialized before they are used, and they should be destroyed when they are no longer needed to avoid resource leaks.
 
-- `pthread_mutex_destroy()`: 
-   - This function is used to destroy a mutex object, releasing any resources associated with it. 
-   - It should be called when a mutex is no longer needed to ensure proper cleanup and prevent resource leaks.
+## `pthread_mutex_destroy()`: 
+
+  - Here's the function signature of `pthread_mutex_destroy`:
+
+    ```c
+    #include <pthread.h>
+
+    int pthread_mutex_destroy(pthread_mutex_t *mutex);
+    ```
+
+  - The `pthread_mutex_destroy` function takes a pointer to a mutex object (`pthread_mutex_t`) as its parameter and returns an integer value indicating success or failure. It destroys the mutex object, releasing any system resources associated with it.
+
+  - Before calling `pthread_mutex_destroy`, it is essential to ensure that the mutex is no longer in use by any thread. Attempting to destroy a mutex while it is locked by a thread can lead to undefined behavior.
+
+  - Here's an example usage of `pthread_mutex_destroy`:
+
+        ```c
+        #include <pthread.h>
+        #include <stdio.h>
+
+        pthread_mutex_t mutex;
+
+        void* thread_func(void* arg) {
+            pthread_mutex_lock(&mutex);
+            // Critical section
+            pthread_mutex_unlock(&mutex);
+            return NULL;
+        }
+
+        int main() {
+            pthread_t thread;
+            pthread_mutex_init(&mutex, NULL);
+
+            // Create and join a thread to simulate mutex usage
+            pthread_create(&thread, NULL, thread_func, NULL);
+            pthread_join(thread, NULL);
+
+            // Destroy the mutex
+            pthread_mutex_destroy(&mutex);
+
+            return 0;
+        }
+    ```
+   - In the example above, the `pthread_mutex_init` function initializes the mutex object, and `pthread_mutex_destroy` is called after the thread completes execution and the mutex is no longer needed.
+
+   - Remember to always check the return value of `pthread_mutex_destroy`. It returns 0 on success and an error code otherwise. If an error occurs, you can use `pthread_mutex_destroy` in a cleanup routine to ensure proper resource deallocation.
+
 
 - `pthread_mutex_lock()`: 
   - It acquires a lock on a mutex, making the calling thread the owner of the mutex. 
