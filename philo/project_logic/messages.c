@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:23:13 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 03:34:24 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/06 18:32:02 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ void	print_stats(void)
 
 void	print_message(int code, int philo_id)
 {
-	pthread_mutex_lock(&sim()->write_mutex);
+	if (code == 1)
+	{
+		printf("%lu %d died.\n", get_time() - sim()->start_time, philo_id);
+		sim()->any_death = 1;
+	}
 	if (code == 2)
 		printf("Philo %d is full.\n", philo_id);
 	if (code == 3)
@@ -46,11 +50,4 @@ void	print_message(int code, int philo_id)
 		printf("%lu %d is sleeping\n", get_time() - sim()->start_time, philo_id);
 	if (code == 6)
 		printf("%lu %d is thinking\n", get_time() - sim()->start_time, philo_id);
-	pthread_mutex_unlock(&sim()->write_mutex);
-	if (code == 1)
-	{
-		pthread_mutex_lock(&sim()->write_mutex);
-		printf("%lu %d died.\n", get_time() - sim()->start_time, philo_id);
-		sim()->game_on = 0;
-	}
 }

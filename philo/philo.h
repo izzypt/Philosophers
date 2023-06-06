@@ -6,7 +6,7 @@
 /*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 17:07:45 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:39:43 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_simulation	*sim(void);
 void			init_sim(char **argv);
 void			init_philos(void);
 void			init_threads(void);
-void			init_forks(int num_of_fork);
+void			init_mutexes(int num_of_fork);
 
 /* Init Messages */
 

@@ -6,31 +6,11 @@
 /*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:06:23 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 17:09:44 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:38:17 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-/*
-- Esta função aloca memoria para o array de mutexes dos garfos.
-- Cria e inicia um nº de mutex igual ao nº de filosofos.
-*/
-void	init_forks(int num_of_fork)
-{
-	int				i;
-	pthread_mutex_t	*forks;
-
-	i = 0;
-	printf("| Creating forks...                                          |\n");
-	sim()->forks = malloc(num_of_fork * sizeof(pthread_mutex_t));
-	forks = sim()->forks;
-	while (i < num_of_fork)
-	{
-		pthread_mutex_init(&forks[i], NULL);
-		i++;
-	}
-}
 
 /*
 - Esta função deve trancar os garfos correspondentes ao filosofo que a executar.

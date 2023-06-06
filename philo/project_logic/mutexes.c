@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   mutexes.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 22:10:46 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 18:26:25 by smagalha         ###   ########.fr       */
+/*   Created: 2023/06/06 18:32:50 by smagalha          #+#    #+#             */
+/*   Updated: 2023/06/06 18:41:20 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	free_and_exit(void)
+/*
+- Esta função aloca memoria para o array de mutexes dos garfos.
+- Cria e inicia um nº de mutex igual ao nº de filosofos.
+*/
+void	init_mutexes(int num_of_fork)
 {
-	int	i;
+	int				i;
+	pthread_mutex_t	*forks;
 
 	i = 0;
-	while (i < sim()->num_of_philo)
+	printf("| Creating forks...                                          |\n");
+	sim()->forks = malloc(num_of_fork * sizeof(pthread_mutex_t));
+	forks = sim()->forks;
+	while (i < num_of_fork)
 	{
-		pthread_mutex_unlock(&sim()->forks[i]);
+		pthread_mutex_init(&forks[i], NULL);
 		i++;
 	}
-	free(sim()->forks);
-	free(sim()->philos);
-	free(sim()->threads);
-	exit(0);
 }

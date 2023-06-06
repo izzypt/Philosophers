@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 03:55:22 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/06 18:39:01 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@
 */
 void	init_sim(char **argv)
 {
-	sim()->game_on = 1;
 	sim()->start_time = get_time();
 	sim()->num_of_philo = ft_atoi(argv[1]);
 	sim()->num_of_forks = ft_atoi(argv[1]);
 	sim()->time_to_die = ft_atoi(argv[2]);
 	sim()->time_to_eat = ft_atoi(argv[3]);
 	sim()->time_to_sleep = ft_atoi(argv[4]);
-	sim()->full_philos = 0;
+	sim()->happy_philos = 0;
+	sim()->any_death = 0;
 	if (argv[5])
 		sim()->max_meals = ft_atoi(argv[5]);
 	else
 		sim()->max_meals = 0;
 	print_stats();
-	init_forks(sim()->num_of_philo);
+	init_mutexes(sim()->num_of_philo);
 	init_philos();
 }
 
@@ -56,11 +56,9 @@ void	init_philos(void)
 		sim()->philos[i].id = i + 1;
 		sim()->philos[i].rfork = i;
 		sim()->philos[i].lfork = ((i + 1) % sim()->num_of_philo);
-		sim()->philos[i].is_eating = 0;
 		sim()->philos[i].num_of_meals = 0;
-		sim()->philos[i].isfull = 0;
+		sim()->philos[i].ishappy = 0;
 		sim()->philos[i].time_limit = sim()->start_time + sim()->time_to_die;
-		pthread_mutex_init(&sim()->write_mutex, NULL);
 		i++;
 	}
 	init_threads();
