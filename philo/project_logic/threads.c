@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 18:51:24 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/06 21:24:50 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	*t_handler(void *arg)
 	philo = (t_philosopher *)arg;
 	pthread_create(&philo->thread, NULL, monitor, (void *)philo);
 	if (philo->id % 2 == 0)
-		sleep_ms(7);
+		sleep_ms(6);
 	while (1)
 	{
 		if (sim()->any_death)
