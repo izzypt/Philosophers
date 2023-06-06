@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 02:50:36 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/06 17:07:45 by smagalha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,16 @@ struct	s_simulation;
 typedef struct t_philosopher
 {
 	int					id;
-	int					lfork;
 	int					rfork;
-	long int			last_meal;
+	int					lfork;
 	int					num_of_meals;
-	int					isfull;
-	int					is_eating;
+	int					ishappy;
 	long int			time_limit;
 	pthread_t			thread;
-	struct s_simulation	*sim;
 }	t_philosopher;
 
 typedef struct s_simulation
 {
-	int				game_on;
 	long int		start_time;
 	int				num_of_philo;
 	int				num_of_forks;
@@ -54,7 +50,7 @@ typedef struct s_simulation
 	int				time_to_sleep;
 	int				max_meals;
 	int				any_death;
-	int				full_philos;
+	int				happy_philos;
 	t_philosopher	*philos;
 	pthread_mutex_t	write_mutex;
 	pthread_mutex_t	*forks;
