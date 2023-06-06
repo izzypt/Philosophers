@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:06:23 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 20:10:16 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/06 03:52:21 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	init_forks(int num_of_fork)
 */
 void	take_forks(t_philosopher *philo)
 {
-	pthread_mutex_lock(&sim()->forks[philo->lfork]);
 	pthread_mutex_lock(&sim()->forks[philo->rfork]);
+	pthread_mutex_lock(&sim()->forks[philo->lfork]);
 	philo->time_limit = get_time() + sim()->time_to_die;
 	philo->last_meal = get_time();
 	print_message(3, philo->id);

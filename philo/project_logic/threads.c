@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 19:59:17 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/06 03:57:26 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*monitor(void *arg)
 		{
 			if (philo->isfull)
 				break ;
-			printf("%lu %d died.\n", get_time() - sim()->start_time, philo->id);
+			print_message(1, philo->id);
 			sim()->any_death = 1;
 			break ;
 		}
@@ -48,7 +48,7 @@ void	*t_handler(void *arg)
 	pthread_create(&philo->thread, NULL, monitor, (void *)philo);
 	pthread_detach(philo->thread);
 	if (philo->id % 2 == 0)
-		sleep_ms(5);
+		sleep_ms(7);
 	while (1)
 	{
 		if (sim()->any_death)
@@ -56,7 +56,8 @@ void	*t_handler(void *arg)
 		if (sim()->max_meals > 0 && (philo->num_of_meals == sim()->max_meals))
 		{
 			philo->isfull = 1;
-			printf("Philo %d is full.\n", philo->id);
+			sim()->full_philos += 1;
+			print_message(2, philo->id);
 			break ;
 		}
 		take_forks(philo);
@@ -83,12 +84,7 @@ void	init_threads(void)
 	while (i < sim()->num_of_philo)
 	{
 		pthread_create(&threads[i], NULL, t_handler, (void *)&sim()->philos[i]);
-		i++;
-	}
-	i = 0;
-	while (i < sim()->num_of_philo)
-	{
-		pthread_join(threads[i], NULL);
+		pthread_detach(threads[i]);
 		i++;
 	}
 }

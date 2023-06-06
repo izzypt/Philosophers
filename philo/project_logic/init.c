@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/06/05 20:25:31 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/06 03:55:22 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 */
 void	init_sim(char **argv)
 {
+	sim()->game_on = 1;
 	sim()->start_time = get_time();
 	sim()->num_of_philo = ft_atoi(argv[1]);
 	sim()->num_of_forks = ft_atoi(argv[1]);
