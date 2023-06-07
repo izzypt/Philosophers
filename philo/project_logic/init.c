@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 18:39:01 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/07 22:04:14 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ void	init_sim(char **argv)
 	else
 		sim()->max_meals = 0;
 	print_stats();
-	init_mutexes(sim()->num_of_philo);
 	init_philos();
+	init_mutexes(sim()->num_of_philo);
+	init_threads();
 }
 
 /*
@@ -61,5 +62,4 @@ void	init_philos(void)
 		sim()->philos[i].time_limit = sim()->start_time + sim()->time_to_die;
 		i++;
 	}
-	init_threads();
 }

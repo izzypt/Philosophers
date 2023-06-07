@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 18:32:50 by smagalha          #+#    #+#             */
-/*   Updated: 2023/06/06 20:20:31 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/07 22:28:54 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	init_mutexes(int num_of_fork)
 	while (i < num_of_fork)
 	{
 		pthread_mutex_init(&forks[i], NULL);
+		pthread_mutex_init(&sim()->philos[i].philo_mutex, NULL);
 		i++;
 	}
 	pthread_mutex_init(&sim()->write_mutex, NULL);
+	pthread_mutex_init(&sim()->time_mutex, NULL);
+	pthread_mutex_init(&sim()->check_mutex, NULL);
 }

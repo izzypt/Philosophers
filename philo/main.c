@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:50:32 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 18:21:37 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/07 22:29:57 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv)
 		init_sim(argv);
 	while (1)
 	{
+		pthread_mutex_lock(&sim()->check_mutex);
 		if (sim()->any_death || sim()->happy_philos == sim()->num_of_philo)
 		{
 			while (i < sim()->num_of_philo)
@@ -32,6 +33,8 @@ int	main(int argc, char **argv)
 			free_and_exit();
 			break ;
 		}
+		pthread_mutex_unlock(&sim()->check_mutex);
+		sleep_ms(1);
 	}	
 	return (0);
 }

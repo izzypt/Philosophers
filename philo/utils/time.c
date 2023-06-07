@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:53:55 by smagalha          #+#    #+#             */
-/*   Updated: 2023/06/03 21:11:52 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/07 22:15:13 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ long int	get_time(void)
 {
 	struct timeval	time;
 
+	pthread_mutex_lock(&sim()->time_mutex);
 	gettimeofday(&time, NULL);
+	pthread_mutex_unlock(&sim()->time_mutex);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 18:39:43 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/07 22:28:34 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct t_philosopher
 	int					num_of_meals;
 	int					ishappy;
 	long int			time_limit;
+	pthread_mutex_t		philo_mutex;
 	pthread_t			thread;
 }	t_philosopher;
 
@@ -53,6 +54,8 @@ typedef struct s_simulation
 	int				happy_philos;
 	t_philosopher	*philos;
 	pthread_mutex_t	write_mutex;
+	pthread_mutex_t	time_mutex;
+	pthread_mutex_t	check_mutex;
 	pthread_mutex_t	*forks;
 	pthread_t		*threads;
 }	t_simulation;

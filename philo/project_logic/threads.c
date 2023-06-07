@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 21:24:50 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/07 22:30:13 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,21 @@ void	*monitor(void *arg)
 	philo = (t_philosopher *)arg;
 	while (1)
 	{
+		pthread_mutex_lock(&philo->philo_mutex);
 		if (get_time() > philo->time_limit)
 		{
+			pthread_mutex_unlock(&philo->philo_mutex);
+			pthread_mutex_lock(&philo->philo_mutex);
 			if (philo->ishappy)
+			{
+				pthread_mutex_unlock(&philo->philo_mutex);
 				break ;
+			}	
 			print_message(1, philo->id);
+			pthread_mutex_unlock(&philo->philo_mutex);
 			break ;
 		}
+		pthread_mutex_unlock(&philo->philo_mutex);
 	}
 	return (NULL);
 }
@@ -53,8 +61,12 @@ void	*t_handler(void *arg)
 			break ;
 		if (sim()->max_meals > 0 && (philo->num_of_meals == sim()->max_meals))
 		{
+			pthread_mutex_lock(&philo->philo_mutex);
 			philo->ishappy = 1;
+			pthread_mutex_unlock(&philo->philo_mutex);
+			pthread_mutex_lock(&sim()->check_mutex);
 			sim()->happy_philos += 1;
+			pthread_mutex_unlock(&sim()->check_mutex);
 			print_message(2, philo->id);
 			break ;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagalha <smagalha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:10:46 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 19:18:42 by smagalha         ###   ########.fr       */
+/*   Updated: 2023/06/07 22:04:38 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	free_and_exit(void)
 	i = 0;
 	while (i < sim()->num_of_philo)
 	{
-		pthread_mutex_unlock(&sim()->forks[i]);
 		pthread_mutex_destroy(&sim()->forks[i]);
 		i++;
 	}

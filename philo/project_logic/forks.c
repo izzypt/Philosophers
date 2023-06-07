@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:06:23 by simao             #+#    #+#             */
-/*   Updated: 2023/06/06 21:17:58 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/07 22:31:39 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	take_forks(t_philosopher *philo)
 	}
 	pthread_mutex_lock(&sim()->forks[philo->rfork]);
 	pthread_mutex_lock(&sim()->forks[philo->lfork]);
+	pthread_mutex_lock(&philo->philo_mutex);
 	philo->time_limit = get_time() + sim()->time_to_die;
+	pthread_mutex_unlock(&philo->philo_mutex);
 	print_message(3, philo->id);
 	eat(philo);
 }
