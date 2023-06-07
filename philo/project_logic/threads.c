@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/07 22:30:13 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/07 23:05:54 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,16 @@ void	*t_handler(void *arg)
 	philo = (t_philosopher *)arg;
 	pthread_create(&philo->thread, NULL, monitor, (void *)philo);
 	if (philo->id % 2 == 0)
-		sleep_ms(6);
+		sleep_ms(10);
 	while (1)
 	{
+		pthread_mutex_lock(&sim()->check_mutex);
 		if (sim()->any_death)
+		{
+			pthread_mutex_unlock(&sim()->check_mutex);
 			break ;
+		}	
+		pthread_mutex_unlock(&sim()->check_mutex);
 		if (sim()->max_meals > 0 && (philo->num_of_meals == sim()->max_meals))
 		{
 			pthread_mutex_lock(&philo->philo_mutex);
