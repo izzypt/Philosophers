@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:03:24 by simao             #+#    #+#             */
-/*   Updated: 2023/06/07 22:04:14 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/08 19:00:37 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	init_sim(char **argv)
 void	init_philos(void)
 {
 	int	i;
+	int	tmp;
 
 	i = 0;
 	sim()->philos = malloc(sizeof(t_philosopher) * sim()->num_of_philo);
@@ -57,6 +58,12 @@ void	init_philos(void)
 		sim()->philos[i].id = i + 1;
 		sim()->philos[i].rfork = i;
 		sim()->philos[i].lfork = ((i + 1) % sim()->num_of_philo);
+		if (sim()->philos[i].rfork > sim()->philos[i].lfork)
+		{
+			tmp = sim()->philos[i].rfork;
+			sim()->philos[i].rfork = sim()->philos[i].lfork;
+			sim()->philos[i].lfork = tmp;
+		}
 		sim()->philos[i].num_of_meals = 0;
 		sim()->philos[i].ishappy = 0;
 		sim()->philos[i].time_limit = sim()->start_time + sim()->time_to_die;

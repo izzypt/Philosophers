@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 17:23:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/07 22:28:34 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/08 19:14:27 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void			init_mutexes(int num_of_fork);
 /* Init Messages */
 
 void			print_stats(void);
-void			print_message(int code, int philo_id);
+void			print_message(int code, t_philosopher *philo);
 
 /* Fork Related*/
 

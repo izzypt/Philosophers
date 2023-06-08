@@ -5,26 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/21 17:50:32 by simao             #+#    #+#             */
-/*   Updated: 2023/06/08 18:53:24 by simao            ###   ########.fr       */
+/*   Created: 2023/02/01 21:12:52 by francsan          #+#    #+#             */
+/*   Updated: 2023/06/08 23:05:32 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../headers/philo.h"
 
+/*
+- Verifica o input inicial e os argumentos.
+- Aloca memoria para a struct data e inicia.
+- Começa a correr a simulacao.
+*/
 int	main(int argc, char **argv)
 {
-	int	i;
+	t_data	*data;
 
-	i = 0;
-	if (argc > 2)
-		init_sim(argv);
-	while (i < sim()->num_of_philo)
+	if (argc == 5 || argc == 6)
 	{
-		pthread_join(sim()->threads[i], NULL);
-		pthread_join(sim()->philos[i].thread, NULL);
-		i++;
+		if (check_args(argv))
+			return (1);
 	}
-	free_and_exit();
+	else
+		return (2);
+	data = ft_calloc(1, sizeof(t_data));
+	if (!data)
+		return (3);
+	if (init_data(data, argv))
+		return (4);
+	run_simulation(data);
+	if (data->eat_flag == data->num_philos)
+		printf("%lld ms ... %s\n", get_time(data), MEALS);
+	free_and_destroy(data);
 	return (0);
 }

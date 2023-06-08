@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:10:46 by simao             #+#    #+#             */
-/*   Updated: 2023/06/07 22:04:38 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/08 19:20:27 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,4 @@ void	free_and_exit(void)
 	free(sim()->forks);
 	free(sim()->philos);
 	free(sim()->threads);
-	exit(0);
 }

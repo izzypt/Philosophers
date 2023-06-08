@@ -5,36 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 19:53:55 by smagalha          #+#    #+#             */
-/*   Updated: 2023/06/08 19:45:44 by simao            ###   ########.fr       */
+/*   Created: 2023/06/08 23:12:10 by simao             #+#    #+#             */
+/*   Updated: 2023/06/08 23:12:24 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../headers/philo.h"
 
-long int	get_time(void)
+long long	get_time(t_data *data)
 {
 	struct timeval	time;
+	long long		current;
 
+	(void)data;
 	gettimeofday(&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	current = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (current - data->start_time);
 }
 
-long int	get_time_ms(void)
+void	ft_usleep(long long time)
 {
-	struct timeval	time;
+	struct timeval	s_time;
+	struct timeval	c_time;
+	long long		start;
+	long long		current;
 
-	gettimeofday(&time, NULL);
-	return ((time.tv_usec / 1000));
-}
-
-/*
-- Sleeps by the given time in ms
-*/
-void	sleep_ms(long int ms)
-{
-	long int	sleep;
-
-	sleep = ms * 1000;
-	usleep(sleep);
+	gettimeofday(&s_time, NULL);
+	start = ((s_time.tv_usec / 1000) + (s_time.tv_sec * 1000));
+	while (1)
+	{
+		gettimeofday(&c_time, NULL);
+		current = ((c_time.tv_usec / 1000) + (c_time.tv_sec * 1000));
+		if (current - start >= time)
+			break ;
+		usleep(50);
+	}
 }

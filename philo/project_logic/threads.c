@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:05:12 by simao             #+#    #+#             */
-/*   Updated: 2023/06/07 23:05:54 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/08 19:39:15 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,13 @@ void	*monitor(void *arg)
 	philo = (t_philosopher *)arg;
 	while (1)
 	{
-		pthread_mutex_lock(&philo->philo_mutex);
 		if (get_time() > philo->time_limit)
 		{
-			pthread_mutex_unlock(&philo->philo_mutex);
-			pthread_mutex_lock(&philo->philo_mutex);
 			if (philo->ishappy)
-			{
-				pthread_mutex_unlock(&philo->philo_mutex);
 				break ;
-			}	
-			print_message(1, philo->id);
-			pthread_mutex_unlock(&philo->philo_mutex);
+			print_message(1, philo);
 			break ;
 		}
-		pthread_mutex_unlock(&philo->philo_mutex);
 	}
 	return (NULL);
 }
@@ -54,25 +46,15 @@ void	*t_handler(void *arg)
 	philo = (t_philosopher *)arg;
 	pthread_create(&philo->thread, NULL, monitor, (void *)philo);
 	if (philo->id % 2 == 0)
-		sleep_ms(10);
+		sleep_ms(5);
 	while (1)
 	{
-		pthread_mutex_lock(&sim()->check_mutex);
 		if (sim()->any_death)
-		{
-			pthread_mutex_unlock(&sim()->check_mutex);
 			break ;
-		}	
-		pthread_mutex_unlock(&sim()->check_mutex);
 		if (sim()->max_meals > 0 && (philo->num_of_meals == sim()->max_meals))
 		{
-			pthread_mutex_lock(&philo->philo_mutex);
 			philo->ishappy = 1;
-			pthread_mutex_unlock(&philo->philo_mutex);
-			pthread_mutex_lock(&sim()->check_mutex);
-			sim()->happy_philos += 1;
-			pthread_mutex_unlock(&sim()->check_mutex);
-			print_message(2, philo->id);
+			print_message(2, philo);
 			break ;
 		}
 		take_forks(philo);

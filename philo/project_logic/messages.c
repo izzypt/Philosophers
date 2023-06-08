@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:23:13 by simao             #+#    #+#             */
-/*   Updated: 2023/06/07 23:05:23 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/08 19:40:27 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,21 @@ void	print_stats(void)
 	printf("==============================================================\n");
 }
 
-void	print_message(int code, int philo_id)
+void	print_message(int code, t_philosopher *philo)
 {
-	pthread_mutex_lock(&sim()->write_mutex);
 	if (code == 1 && !sim()->any_death)
 	{
-		printf("%lu %d died.\n", get_time() - sim()->start_time, philo_id);
+		printf("%lu %d died.\n", get_time() - sim()->start_time, philo->id);
 		sim()->any_death = 1;
 	}
 	if (code == 2 && !sim()->any_death)
-		printf("Philo %d is full.\n", philo_id);
+		printf("Philo %d is full.\n", philo->id);
 	if (code == 3 && !sim()->any_death)
-		printf("%lu %d took a fork\n", get_time() - sim()->start_time, philo_id);
+		printf("%lu %d took forks\n", get_time() - sim()->start_time, philo->id);
 	if (code == 4 && !sim()->any_death)
-		printf("%lu %d is eating\n", get_time() - sim()->start_time, philo_id);
+		printf("%lu %d is eating\n", get_time() - sim()->start_time, philo->id);
 	if (code == 5 && !sim()->any_death)
-		printf("%lu %d is sleeping\n", get_time() - sim()->start_time, philo_id);
+		printf("%lu %d sleeping\n", get_time() - sim()->start_time, philo->id);
 	if (code == 6 && !sim()->any_death)
-		printf("%lu %d is thinking\n", get_time() - sim()->start_time, philo_id);
-	pthread_mutex_unlock(&sim()->write_mutex);
+		printf("%lu %d thinking\n", get_time() - sim()->start_time, philo->id);
 }
