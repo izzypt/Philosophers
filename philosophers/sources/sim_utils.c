@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 00:05:37 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/08 23:12:43 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/08 23:48:18 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_all(t_data *data, t_philo *philo)
 	if ((get_time(data) - philo->last_eat) > data->time_die)
 	{
 		data->dead_flag = 1;
-		printf("%lld ms | %d %s\n", get_time(data), philo->id, DEAD);
+		printf("%lld ... %d %s\n", get_time(data), philo->id, DEAD);
 		pthread_mutex_unlock(&data->m_dead_philo);
 		return (0);
 	}
