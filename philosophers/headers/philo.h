@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 20:26:32 by francsan          #+#    #+#             */
-/*   Updated: 2023/06/08 23:13:50 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/08 23:24:44 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void		free_and_destroy(t_data *r);
 
 // simulation.c
 void		philo_starve(t_data *r, t_philo *p);
-void		*simulation(void *arg);
+void		*philo_handler(void *arg);
 void		run_simulation(t_data *r);
 
 // utils.c

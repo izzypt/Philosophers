@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 22:59:32 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/08 23:10:52 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/08 23:37:46 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ void	philo_starve(t_data *data, t_philo *philo)
 	pthread_mutex_unlock(&data->m_dead_philo);
 }
 
-void	*simulation(void *arg)
+/*
+- A thread handler for each philo
+- Delay the time in which even philosophers reach the table
+- Will make the checks before executing any action.
+*/
+void	*philo_handler(void *arg)
 {
 	t_data		*data;
 	t_philo		*philo;
@@ -54,6 +59,11 @@ void	*simulation(void *arg)
 	return (NULL);
 }
 
+/*
+- Will set the initial time of the simulation
+- Will create a thread for each philosopher.
+- Will wait for the threads to run and join them to the main thread.
+*/
 void	run_simulation(t_data *data)
 {
 	struct timeval	st;
@@ -68,7 +78,7 @@ void	run_simulation(t_data *data)
 	{
 		data->philos[i].last_eat = data->start_time;
 		if (pthread_create(&data->philos[i].philo_thread, NULL, \
-		&simulation, data))
+		&philo_handler, data))
 			return ;
 	}
 	i = -1;
