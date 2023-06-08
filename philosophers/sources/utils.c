@@ -6,11 +6,30 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 22:08:52 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/08 21:42:45 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/09 00:50:28 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
+
+/*
+- Liberta e destroi os mutexes e a memoria alocada aos forks e filosofos.
+*/
+void	free_and_destroy(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->num_philos)
+		pthread_mutex_destroy(&data->m_fork[i]);
+	pthread_mutex_destroy(&data->m_dead_philo);
+	pthread_mutex_destroy(&data->m_check_eat);
+	pthread_mutex_destroy(&data->m_counter);
+	pthread_mutex_destroy(&data->m_increment);
+	free(data->m_fork);
+	free(data->forks);
+	free(data->philos);
+}
 
 int	ft_isdigit(int c)
 {

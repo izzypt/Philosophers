@@ -8,7 +8,7 @@ RM			=	rm -rf
 HEADER_F	=	philo.h
 HEADER_DIR	=	headers/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_F))
-SOURCE_F	=	actions.c init_data.c main.c sim_utils.c \
+SOURCE_F	=	actions.c init_data.c main.c checkers.c \
 				simulation.c utils.c time.c
 SOURCE_DIR	=	sources/
 SOURCE		=	$(addprefix $(SOURCE_DIR), $(SOURCE_F))

@@ -6,24 +6,11 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:29:12 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/08 23:50:45 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/09 00:53:44 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
-
-void	check_fork(t_data *data, t_philo *philo, int pos)
-{
-	pthread_mutex_lock(&data->m_fork[pos]);
-	if (data->forks[pos] == 0)
-	{
-		data->forks[pos] = 1;
-		philo->fork += 1;
-		if (check_all(data, philo))
-			printf("%lld ... %d %s\n", get_time(data), philo->id, FORK);
-	}
-	pthread_mutex_unlock(&data->m_fork[pos]);
-}
 
 void	philo_eat(t_data *data, t_philo *philo)
 {

@@ -6,12 +6,33 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 00:05:37 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/08 23:48:18 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/09 00:50:04 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
+/*
+- 
+-
+*/
+void	check_fork(t_data *data, t_philo *philo, int pos)
+{
+	pthread_mutex_lock(&data->m_fork[pos]);
+	if (data->forks[pos] == 0)
+	{
+		data->forks[pos] = 1;
+		philo->fork += 1;
+		if (check_all(data, philo))
+			printf("%lld ... %d %s\n", get_time(data), philo->id, FORK);
+	}
+	pthread_mutex_unlock(&data->m_fork[pos]);
+}
+
+/*
+-
+-
+*/
 int	check_eat(t_data *data, t_philo *philo)
 {
 	pthread_mutex_lock(&data->m_check_eat);
@@ -32,6 +53,11 @@ int	check_eat(t_data *data, t_philo *philo)
 	return (1);
 }
 
+/*
+- Verifica se existe algum filosofo morto 
+- Verifica se os filosofos ja comeram o maximo de meals.
+- Verifica se o tempo limite para o filosofo comer foi ultrupassado.
+*/
 int	check_all(t_data *data, t_philo *philo)
 {
 	pthread_mutex_lock(&data->m_dead_philo);
@@ -56,18 +82,3 @@ int	check_all(t_data *data, t_philo *philo)
 	return (1);
 }
 
-void	free_and_destroy(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < data->num_philos)
-		pthread_mutex_destroy(&data->m_fork[i]);
-	pthread_mutex_destroy(&data->m_dead_philo);
-	pthread_mutex_destroy(&data->m_check_eat);
-	pthread_mutex_destroy(&data->m_counter);
-	pthread_mutex_destroy(&data->m_increment);
-	free(data->m_fork);
-	free(data->forks);
-	free(data->philos);
-}
