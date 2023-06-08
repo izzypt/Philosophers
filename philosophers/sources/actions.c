@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:29:12 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/08 22:37:57 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/08 23:50:45 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_fork(t_data *data, t_philo *philo, int pos)
 		data->forks[pos] = 1;
 		philo->fork += 1;
 		if (check_all(data, philo))
-			printf("%lld ms ... %d %s\n", get_time(data), philo->id, FORK);
+			printf("%lld ... %d %s\n", get_time(data), philo->id, FORK);
 	}
 	pthread_mutex_unlock(&data->m_fork[pos]);
 }
@@ -36,7 +36,7 @@ void	philo_eat(t_data *data, t_philo *philo)
 	{
 		philo->last_eat = get_time(data);
 		if (check_all(data, philo))
-			printf("%lld ms ... %d %s\n", get_time(data), philo->id, EAT);
+			printf("%lld ... %d %s\n", get_time(data), philo->id, EAT);
 		philo->eat_counter += 1;
 		check_all(data, philo);
 		ft_usleep(data->time_eat);
@@ -57,7 +57,7 @@ void	philo_sleep(t_data *data, t_philo *philo)
 	if (data->dead_flag == 0 && data->eat_flag != data->num_philos)
 	{
 		pthread_mutex_unlock(&data->m_check_eat);
-		printf("%lld ms ... %d %s\n", get_time(data), philo->id, SLEEP);
+		printf("%lld ... %d %s\n", get_time(data), philo->id, SLEEP);
 		ft_usleep(data->time_sleep);
 	}
 	else
