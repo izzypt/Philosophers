@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 00:05:37 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/09 03:54:06 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/09 12:07:07 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,3 @@ int	check_all(t_data *data, t_philo *philo)
 	pthread_mutex_unlock(&data->m_dead_philo);
 	return (1);
 }
-

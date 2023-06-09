@@ -6,12 +6,15 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 23:12:10 by simao             #+#    #+#             */
-/*   Updated: 2023/06/08 23:12:24 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/09 12:06:52 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
+/*
+- Returns the time in milliseconds.
+*/
 long long	get_time(t_data *data)
 {
 	struct timeval	time;
@@ -23,6 +26,9 @@ long long	get_time(t_data *data)
 	return (current - data->start_time);
 }
 
+/*
+- Sleeps in miliseconds by the given amount.
+*/
 void	ft_usleep(long long time)
 {
 	struct timeval	s_time;
