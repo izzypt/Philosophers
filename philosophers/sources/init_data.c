@@ -6,12 +6,15 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 22:16:50 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/08 22:46:19 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/09 12:33:56 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
+/*
+- Validação dos argumentos fornecidos.
+*/
 int	check_args(char **argv)
 {
 	int	i;
@@ -32,6 +35,10 @@ int	check_args(char **argv)
 	return (0);
 }
 
+/*
+- Aloca a memoria necessaria para os garfos, filosofos e forks.
+- Define tudo com o valor inicial de 0 (calloc).
+*/
 int	init_alloc(t_data *data)
 {
 	data->forks = ft_calloc(data->num_philos, sizeof(int));
@@ -46,6 +53,9 @@ int	init_alloc(t_data *data)
 	return (0);
 }
 
+/*
+- Inicia os filosofos.
+*/
 void	init_philos(t_data *data)
 {
 	int	i;
@@ -68,6 +78,9 @@ void	init_philos(t_data *data)
 	}
 }
 
+/*
+- Inicia os mutexes
+*/
 int	init_mutexes(t_data *data)
 {
 	int	i;
@@ -89,6 +102,9 @@ int	init_mutexes(t_data *data)
 	return (0);
 }
 
+/*
+- Inicia os valores iniciais na struct data
+*/
 int	init_data(t_data *data, char **argv)
 {
 	data->num_philos = ft_atoi(argv[1]);

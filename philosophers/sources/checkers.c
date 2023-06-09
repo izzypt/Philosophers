@@ -6,7 +6,7 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 00:05:37 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/09 12:07:07 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/09 12:31:32 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ void	check_fork(t_data *data, t_philo *philo, int pos)
 }
 
 /*
-- Check if the philo has had the maximum nº of meals;
+- Check if the philo has had the maximum nº of meals and increases eat flag.
 - Also checks if all the philos have had the maximum nº of meals.
+- Retorna 0 se todos os filosofos ja tiveram comido o nº max e 1 caso contrario.
 */
 int	check_eat(t_data *data, t_philo *philo)
 {
