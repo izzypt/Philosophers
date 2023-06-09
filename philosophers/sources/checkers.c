@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sim_utils.c                                        :+:      :+:    :+:   */
+/*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 00:05:37 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/09 00:50:04 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/09 03:54:06 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
 /*
-- 
--
+- Check if the fork is not taken (fork == 0).
+- Once it is taken, set the flag to taken.
+- Increases the philo counter of forks (max 2).
 */
 void	check_fork(t_data *data, t_philo *philo, int pos)
 {
@@ -30,8 +31,8 @@ void	check_fork(t_data *data, t_philo *philo, int pos)
 }
 
 /*
--
--
+- Check if the philo has had the maximum nº of meals;
+- Also checks if all the philos have had the maximum nº of meals.
 */
 int	check_eat(t_data *data, t_philo *philo)
 {

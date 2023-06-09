@@ -6,12 +6,17 @@
 /*   By: simao <simao@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:29:12 by francisco         #+#    #+#             */
-/*   Updated: 2023/06/09 00:53:44 by simao            ###   ########.fr       */
+/*   Updated: 2023/06/09 03:41:12 by simao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
+/*
+- Philo keeps checking forks until 2 are available/taken.
+- Define last meal time once forks taken.
+- Increases eat counter.
+*/
 void	philo_eat(t_data *data, t_philo *philo)
 {
 	while (philo->fork != 2 && check_all(data, philo))
@@ -38,6 +43,9 @@ void	philo_eat(t_data *data, t_philo *philo)
 	}
 }
 
+/*
+- Sleeps for the time sleep amount
+*/
 void	philo_sleep(t_data *data, t_philo *philo)
 {
 	pthread_mutex_lock(&data->m_check_eat);
